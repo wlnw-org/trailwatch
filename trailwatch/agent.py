@@ -115,7 +115,9 @@ class TriageAgent:
             tried.add(f.index)
             img = f.image
             q = vision.assess_quality(img)
+            raw_pred = None
             if not q.usable:
+                raw_pred = self.clf.classify(vision.crop(img, ev.box_for(f.index)))
                 img = vision.enhance(img)
                 q2 = vision.assess_quality(img)
                 self._log(run, "enhance", {"frame": f.index, "before": q.to_dict()}, {"after": q2.to_dict()},
@@ -123,6 +125,11 @@ class TriageAgent:
                 q = q2
             c = vision.crop(img, ev.box_for(f.index))
             pred = self.clf.classify(c)
+            if raw_pred is not None and raw_pred.score > pred.score:
+                # Enhancement can distort colour; keep whichever version the classifier is surer about.
+                self._log(run, "compare", {"frame": f.index}, {"raw": raw_pred.score, "enhanced": pred.score},
+                          "raw frame was more informative than the enhanced one")
+                pred = raw_pred
             self._log(run, "classify", {"frame": f.index, "crop": list(c.shape[:2])}, asdict(pred),
                       "accept" if pred.score >= p["accept_score"] else "unsure: try another frame")
             if best is None or pred.score > best[0].score:
@@ -132,6 +139,18 @@ class TriageAgent:
                     cv2.imwrite(str(self.out_dir / f"event{ev.start}_frame{f.index}.jpg"), c)
             if pred.score >= p["accept_score"]:
                 break
+            if q.usable and attempts < p["max_frame_attempts"]:
+                # The frame looked fine but the classifier is unsure: sharpen and re-classify the same frame.
+                e_img = vision.enhance(f.image)
+                ce = vision.crop(e_img, ev.box_for(f.index))
+                attempts += 1
+                pe = self.clf.classify(ce)
+                self._log(run, "classify_enhanced", {"frame": f.index}, asdict(pe),
+                          "accept" if pe.score >= p["accept_score"] else "still unsure: try another frame")
+                if pe.score > best[0].score:  # type: ignore[index]
+                    best = (pe, f.index, vision.assess_quality(e_img))
+                if pe.score >= p["accept_score"]:
+                    break
             if len(tried) >= max(1, len(ev.boxes)):
                 break
 

@@ -46,37 +46,52 @@ class StubClassifier(Classifier):
         sharp = min(1.0, float(cv2.Laplacian(grey, cv2.CV_64F).var()) / 400.0)
         bright = min(1.0, float(grey.mean()) / 90.0)
         q = 0.35 + 0.65 * sharp * bright
-        if r > b + 25 and r > g + 25:
+        tot = max(1.0, r + g + b)
+        sr, sg, sb = r / tot, g / tot, b / tot  # chromaticity survives darkness, unlike raw differences
+        if sr > max(sg, sb) + 0.05:
             return Prediction("Asian elephant", "Elephas maximus", round(0.95 * q, 3), self.name)
-        if b > r + 25 and b > g + 25:
+        if sb > max(sr, sg) + 0.05:
             return Prediction("Spotted deer", "Axis axis", round(0.92 * q, 3), self.name)
         return Prediction("unknown animal", "", round(0.3 * q, 3), self.name)
 
 
 class SpeciesNetClassifier(Classifier):
+    """Google SpeciesNet's species classifier, run on the crop the agent chose.
+
+    The crop already comes from OpenCV motion detection, so the classifier sees
+    it as one full-frame box. Geofencing (SpeciesNet's ensemble step) is not
+    applied here; the agent's policy and human review play that role.
+    """
+
     name = "speciesnet"
 
-    def __init__(self, model: str | None = None, country: str = "IND"):
-        from speciesnet import SpeciesNet  # heavy import, only when used
+    def __init__(self, model: str | None = None):
+        import speciesnet
+        from speciesnet import SpeciesNetClassifier as _Clf
 
-        self.model_name = model or os.environ.get("SPECIESNET_MODEL", "kaggle:google/speciesnet/pyTorch/v4.0.2a/1")
-        self.country = country
-        self.model = SpeciesNet(self.model_name, components="classifier")
-        self.name = f"speciesnet:{self.model_name.split('/')[-2] if '/' in self.model_name else self.model_name}"
+        self._bbox = speciesnet.BBox(0.0, 0.0, 1.0, 1.0)
+        self.model_name = model or os.environ.get("SPECIESNET_MODEL", speciesnet.DEFAULT_MODEL)
+        self.model = _Clf(self.model_name)
+        ver = self.model_name.split("/")[-2] if "/" in self.model_name else self.model_name
+        self.name = f"speciesnet:{ver}"
 
     def classify(self, crop: np.ndarray) -> Prediction:
-        with tempfile.TemporaryDirectory() as d:
-            p = os.path.join(d, "crop.jpg")
-            cv2.imwrite(p, crop)
-            out = self.model.classify(filepaths=[p], country=self.country)
-        pred = (out.get("predictions") or [{}])[0]
-        classes = (pred.get("classifications") or {}).get("classes") or [""]
-        scores = (pred.get("classifications") or {}).get("scores") or [0.0]
-        # SpeciesNet labels look like "uuid;class;order;family;genus;species;common name"
+        from PIL import Image
+
+        if crop.size == 0:
+            return Prediction("blank", "", 0.0, self.name)
+        img = Image.fromarray(cv2.cvtColor(crop, cv2.COLOR_BGR2RGB))
+        pre = self.model.preprocess(img, bboxes=[self._bbox])
+        out = self.model.predict("crop", pre)
+        cls = (out.get("classifications_list") or [{}])[0]
+        classes, scores = cls.get("classes") or [""], cls.get("scores") or [0.0]
+        # Labels look like "uuid;class;order;family;genus;species;common name"
         parts = classes[0].split(";")
         common = parts[-1] if parts and parts[-1] else "unknown"
-        sci = " ".join(p for p in parts[4:6] if p).strip()
-        return Prediction(common, sci, float(scores[0]), self.name)
+        sci = " ".join(x for x in parts[4:6] if x).strip().capitalize() if len(parts) >= 6 else ""
+        if common in ("blank", "human", "vehicle"):
+            sci = ""
+        return Prediction(common, sci, round(float(scores[0]), 4), self.name)
 
 
 def load_classifier() -> Classifier:

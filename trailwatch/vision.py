@@ -109,14 +109,25 @@ def assess_quality(img: np.ndarray, min_brightness: float = 40.0, min_sharpness:
                    brightness >= min_brightness and sharpness >= min_sharpness)
 
 
-def enhance(img: np.ndarray) -> np.ndarray:
-    """Low-light and haze recovery: CLAHE on the L channel, then a mild unsharp mask."""
-    lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+def enhance(img: np.ndarray, target_mean: float = 110.0) -> np.ndarray:
+    """Low-light and haze recovery.
+
+    1. Adaptive gamma: lift dark frames so the mean grey level approaches target_mean.
+    2. CLAHE on the L channel for local contrast.
+    3. A mild unsharp mask to restore edges.
+    """
+    grey_mean = float(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY).mean())
+    out = img
+    if 1.0 < grey_mean < target_mean:
+        gamma = np.log(target_mean / 255.0) / np.log(grey_mean / 255.0)
+        lut = np.clip(((np.arange(256) / 255.0) ** gamma) * 255.0, 0, 255).astype(np.uint8)
+        out = cv2.LUT(out, lut)
+    lab = cv2.cvtColor(out, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(lab)
     l = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8)).apply(l)
     out = cv2.cvtColor(cv2.merge((l, a, b)), cv2.COLOR_LAB2BGR)
     blur = cv2.GaussianBlur(out, (0, 0), 2.0)
-    return cv2.addWeighted(out, 1.5, blur, -0.5, 0)
+    return cv2.addWeighted(out, 1.6, blur, -0.6, 0)
 
 
 def crop(img: np.ndarray, box: tuple[int, int, int, int], pad: float = 0.25) -> np.ndarray:
