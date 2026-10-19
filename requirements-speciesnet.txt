@@ -1,0 +1,2 @@
+# Optional: the real classifier. Large (PyTorch). Set TRAILWATCH_CLASSIFIER=speciesnet to use it.
+speciesnet==5.0.6
