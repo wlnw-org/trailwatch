@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import os
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import cv2
 import numpy as np
@@ -19,6 +19,7 @@ class Prediction:
     scientific: str
     score: float        # classifier score in [0, 1]; not a calibrated probability
     model: str
+    alternatives: list = field(default_factory=list)  # next-best [scientific, score] pairs
 
 
 class Classifier:
@@ -86,15 +87,72 @@ class SpeciesNetClassifier(Classifier):
         cls = (out.get("classifications_list") or [{}])[0]
         classes, scores = cls.get("classes") or [""], cls.get("scores") or [0.0]
         # Labels look like "uuid;class;order;family;genus;species;common name"
-        parts = classes[0].split(";")
-        common = parts[-1] if parts and parts[-1] else "unknown"
-        sci = " ".join(x for x in parts[4:6] if x).strip().capitalize() if len(parts) >= 6 else ""
-        if common in ("blank", "human", "vehicle"):
-            sci = ""
-        return Prediction(common, sci, round(float(scores[0]), 4), self.name)
+        def parse(label: str) -> tuple[str, str]:
+            parts = label.split(";")
+            common = parts[-1] if parts and parts[-1] else "unknown"
+            sci = " ".join(x for x in parts[4:6] if x).strip().capitalize() if len(parts) >= 6 else ""
+            return common, ("" if common in ("blank", "human", "vehicle") else sci)
+
+        common, sci = parse(classes[0])
+        alts = [[parse(c)[1], round(float(sc), 4)] for c, sc in list(zip(classes, scores))[1:5] if parse(c)[1]]
+        return Prediction(common, sci, round(float(scores[0]), 4), self.name, alts)
+
+
+@dataclass
+class Detection:
+    label: str          # "animal", "human" or "vehicle"
+    score: float
+    box: tuple[int, int, int, int]  # x, y, w, h in pixels
+
+
+class MegaDetector:
+    """MegaDetector v5a (via the speciesnet package): finds animals, people and vehicles.
+
+    Slower than OpenCV motion detection, so the agent calls it only when the
+    cheap tools disagree or find nothing.
+    """
+
+    name = "megadetector-v5a"
+
+    def __init__(self, model: str | None = None):
+        import speciesnet
+        from speciesnet import SpeciesNetDetector
+
+        self.model = SpeciesNetDetector(model or os.environ.get("SPECIESNET_MODEL", speciesnet.DEFAULT_MODEL))
+
+    def detect(self, img: np.ndarray, min_score: float = 0.2) -> list[Detection]:
+        from PIL import Image
+
+        h, w = img.shape[:2]
+        pil = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+        out = self.model.predict("frame", self.model.preprocess(pil))
+        dets = []
+        for d in out.get("detections") or []:
+            if d["conf"] < min_score:
+                continue
+            x, y, bw, bh = d["bbox"]
+            dets.append(Detection(d["label"], round(float(d["conf"]), 4),
+                                  (int(x * w), int(y * h), max(1, int(bw * w)), max(1, int(bh * h)))))
+        return sorted(dets, key=lambda d: -d.score)
+
+
+def _have_models() -> bool:
+    try:
+        import speciesnet  # noqa: F401
+        return True
+    except ImportError:
+        return False
+
+
+def load_detector() -> MegaDetector | None:
+    if os.environ.get("TRAILWATCH_DETECTOR", "auto") == "off":
+        return None
+    if os.environ.get("TRAILWATCH_CLASSIFIER", "stub") != "speciesnet" or not _have_models():
+        return None
+    return MegaDetector()
 
 
 def load_classifier() -> Classifier:
-    if os.environ.get("TRAILWATCH_CLASSIFIER", "stub") == "speciesnet":
+    if os.environ.get("TRAILWATCH_CLASSIFIER", "stub") == "speciesnet" and _have_models():
         return SpeciesNetClassifier()
     return StubClassifier()

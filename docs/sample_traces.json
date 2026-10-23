@@ -1,0 +1,1299 @@
+{
+ "elephant-detector": {
+  "source": "samples/elephant-detector/frame1.jpg,samples/elephant-detector/frame2.jpg,samples/elephant-detector/frame3.jpg",
+  "classifier": "speciesnet:v4.0.3a",
+  "fps": 0.0,
+  "frames_read": 3,
+  "events": [
+   {
+    "event": {
+     "start": 0,
+     "end": 2,
+     "peak_frame": 0,
+     "peak_area": 6319.0,
+     "box": [
+      1081,
+      280,
+      163,
+      74
+     ]
+    },
+    "frame_used": 2,
+    "quality": {
+     "brightness": 124.8,
+     "sharpness": 9542.7,
+     "is_night_ir": false,
+     "usable": true
+    },
+    "prediction": {
+     "label": "african elephant",
+     "scientific": "Loxodonta africana",
+     "score": 0.6948,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Syncerus caffer",
+       0.0968
+      ],
+      [
+       "Bos taurus",
+       0.0174
+      ],
+      [
+       "Connochaetes taurinus",
+       0.0153
+      ]
+     ]
+    },
+    "action": "alert_pending_approval",
+    "reason": "elephant near the station",
+    "attempts": 3
+   }
+  ],
+  "trace": [
+   {
+    "t": 1792765306.645,
+    "tool": "read_frames",
+    "inputs": {
+     "source": "samples/elephant-detector/frame1.jpg,samples/elephant-detector/frame2.jpg,samples/elephant-detector/frame3.jpg",
+     "stills": true
+    },
+    "observation": {
+     "frames": 3,
+     "fps": 0.0
+    },
+    "decision": "detect motion"
+   },
+   {
+    "t": 1792765306.999,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.004,
+     "diff_threshold": 28,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 0
+    },
+    "decision": "no motion: retry with a more sensitive threshold"
+   },
+   {
+    "t": 1792765307.295,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.0015,
+     "diff_threshold": 16,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 1
+    },
+    "decision": "triage each event"
+   },
+   {
+    "t": 1792765307.751,
+    "tool": "classify",
+    "inputs": {
+     "frame": 2,
+     "crop": [
+      73,
+      140
+     ]
+    },
+    "observation": {
+     "label": "african elephant",
+     "scientific": "Loxodonta africana",
+     "score": 0.6948,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Syncerus caffer",
+       0.0968
+      ],
+      [
+       "Bos taurus",
+       0.0174
+      ],
+      [
+       "Connochaetes taurinus",
+       0.0153
+      ]
+     ]
+    },
+    "decision": "unsure: try another frame"
+   },
+   {
+    "t": 1792765308.293,
+    "tool": "classify_enhanced",
+    "inputs": {
+     "frame": 2
+    },
+    "observation": {
+     "label": "blank",
+     "scientific": "",
+     "score": 0.4612,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Loxodonta africana",
+       0.4275
+      ],
+      [
+       "Syncerus caffer",
+       0.0696
+      ],
+      [
+       "Connochaetes taurinus",
+       0.0133
+      ]
+     ]
+    },
+    "decision": "still unsure: try another frame"
+   },
+   {
+    "t": 1792765308.722,
+    "tool": "classify",
+    "inputs": {
+     "frame": 1,
+     "crop": [
+      141,
+      192
+     ]
+    },
+    "observation": {
+     "label": "african elephant",
+     "scientific": "Loxodonta africana",
+     "score": 0.4056,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Connochaetes taurinus",
+       0.3173
+      ],
+      [
+       "Syncerus caffer",
+       0.2134
+      ],
+      [
+       "Bos taurus",
+       0.0285
+      ],
+      [
+       "Equus quagga",
+       0.0103
+      ]
+     ]
+    },
+    "decision": "unsure: try another frame"
+   },
+   {
+    "t": 1792765308.722,
+    "tool": "decide",
+    "inputs": {
+     "event": {
+      "start": 0,
+      "end": 2,
+      "peak_frame": 0,
+      "peak_area": 6319.0,
+      "box": [
+       1081,
+       280,
+       163,
+       74
+      ]
+     }
+    },
+    "observation": {
+     "label": "african elephant",
+     "score": 0.6948
+    },
+    "decision": "alert_pending_approval: elephant near the station"
+   }
+  ]
+ },
+ "gazelle-detector": {
+  "source": "samples/gazelle-detector/frame1.jpg,samples/gazelle-detector/frame2.jpg,samples/gazelle-detector/frame3.jpg",
+  "classifier": "speciesnet:v4.0.3a",
+  "fps": 0.0,
+  "frames_read": 3,
+  "events": [
+   {
+    "event": {
+     "start": 0,
+     "end": 0,
+     "peak_frame": 0,
+     "peak_area": 8780.0,
+     "box": [
+      716,
+      38,
+      157,
+      137
+     ]
+    },
+    "frame_used": 0,
+    "quality": {
+     "brightness": 131.4,
+     "sharpness": 2160.8,
+     "is_night_ir": false,
+     "usable": true
+    },
+    "prediction": {
+     "label": "thomson's gazelle",
+     "scientific": "Eudorcas thomsonii",
+     "score": 0.973,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Nanger granti",
+       0.015
+      ],
+      [
+       "Connochaetes taurinus",
+       0.0026
+      ],
+      [
+       "Equus quagga",
+       0.0018
+      ]
+     ]
+    },
+    "action": "log",
+    "reason": "confident identification",
+    "attempts": 1
+   }
+  ],
+  "trace": [
+   {
+    "t": 1792765308.745,
+    "tool": "read_frames",
+    "inputs": {
+     "source": "samples/gazelle-detector/frame1.jpg,samples/gazelle-detector/frame2.jpg,samples/gazelle-detector/frame3.jpg",
+     "stills": true
+    },
+    "observation": {
+     "frames": 3,
+     "fps": 0.0
+    },
+    "decision": "detect motion"
+   },
+   {
+    "t": 1792765309.096,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.004,
+     "diff_threshold": 28,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 1
+    },
+    "decision": "triage each event"
+   },
+   {
+    "t": 1792765309.523,
+    "tool": "classify",
+    "inputs": {
+     "frame": 0,
+     "crop": [
+      205,
+      235
+     ]
+    },
+    "observation": {
+     "label": "blank",
+     "scientific": "",
+     "score": 0.9887,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Bos taurus",
+       0.0018
+      ],
+      [
+       "Odocoileus hemionus",
+       0.0014
+      ],
+      [
+       "Giraffa camelopardalis",
+       0.0013
+      ],
+      [
+       "Equus quagga",
+       0.001
+      ]
+     ]
+    },
+    "decision": "accept"
+   },
+   {
+    "t": 1792765313.151,
+    "tool": "detect_animals",
+    "inputs": {
+     "frame": 0,
+     "model": "megadetector-v5a",
+     "why": "motion but blank"
+    },
+    "observation": {
+     "detections": [
+      {
+       "label": "animal",
+       "score": 0.6347,
+       "box": [
+        0,
+        511,
+        78,
+        229
+       ]
+      },
+      {
+       "label": "animal",
+       "score": 0.2559,
+       "box": [
+        94,
+        512,
+        233,
+        236
+       ]
+      }
+     ]
+    },
+    "decision": "re-crop around the detector's box"
+   },
+   {
+    "t": 1792765313.558,
+    "tool": "classify",
+    "inputs": {
+     "frame": 0,
+     "box": "detector"
+    },
+    "observation": {
+     "label": "thomson's gazelle",
+     "scientific": "Eudorcas thomsonii",
+     "score": 0.973,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Nanger granti",
+       0.015
+      ],
+      [
+       "Connochaetes taurinus",
+       0.0026
+      ],
+      [
+       "Equus quagga",
+       0.0018
+      ]
+     ]
+    },
+    "decision": "accept"
+   },
+   {
+    "t": 1792765313.558,
+    "tool": "decide",
+    "inputs": {
+     "event": {
+      "start": 0,
+      "end": 0,
+      "peak_frame": 0,
+      "peak_area": 8780.0,
+      "box": [
+       716,
+       38,
+       157,
+       137
+      ]
+     }
+    },
+    "observation": {
+     "label": "thomson's gazelle",
+     "score": 0.973
+    },
+    "decision": "log: confident identification"
+   }
+  ]
+ },
+ "hyena-night": {
+  "source": "samples/hyena-night/frame1.jpg,samples/hyena-night/frame2.jpg,samples/hyena-night/frame3.jpg",
+  "classifier": "speciesnet:v4.0.3a",
+  "fps": 0.0,
+  "frames_read": 3,
+  "events": [
+   {
+    "event": {
+     "start": 0,
+     "end": 2,
+     "peak_frame": 2,
+     "peak_area": 22240.5,
+     "box": [
+      428,
+      596,
+      241,
+      184
+     ]
+    },
+    "frame_used": 1,
+    "quality": {
+     "brightness": 81.1,
+     "sharpness": 4525.6,
+     "is_night_ir": true,
+     "usable": true
+    },
+    "prediction": {
+     "label": "spotted hyaena",
+     "scientific": "Crocuta crocuta",
+     "score": 0.9993,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Hyaena hyaena",
+       0.0004
+      ],
+      [
+       "Proteles cristata",
+       0.0001
+      ],
+      [
+       "Canis",
+       0.0001
+      ],
+      [
+       "Otocyon megalotis",
+       0.0
+      ]
+     ]
+    },
+    "action": "log",
+    "reason": "confident identification",
+    "attempts": 1
+   }
+  ],
+  "trace": [
+   {
+    "t": 1792765313.58,
+    "tool": "read_frames",
+    "inputs": {
+     "source": "samples/hyena-night/frame1.jpg,samples/hyena-night/frame2.jpg,samples/hyena-night/frame3.jpg",
+     "stills": true
+    },
+    "observation": {
+     "frames": 3,
+     "fps": 0.0
+    },
+    "decision": "detect motion"
+   },
+   {
+    "t": 1792765313.908,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.004,
+     "diff_threshold": 28,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 1
+    },
+    "decision": "triage each event"
+   },
+   {
+    "t": 1792765314.472,
+    "tool": "enhance",
+    "inputs": {
+     "frame": 1,
+     "before": {
+      "brightness": 22.9,
+      "sharpness": 330.6,
+      "is_night_ir": true,
+      "usable": false
+     }
+    },
+    "observation": {
+     "after": {
+      "brightness": 81.1,
+      "sharpness": 4525.6,
+      "is_night_ir": true,
+      "usable": true
+     }
+    },
+    "decision": "use enhanced frame"
+   },
+   {
+    "t": 1792765314.908,
+    "tool": "classify",
+    "inputs": {
+     "frame": 1,
+     "crop": [
+      266,
+      366
+     ]
+    },
+    "observation": {
+     "label": "spotted hyaena",
+     "scientific": "Crocuta crocuta",
+     "score": 0.9993,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Hyaena hyaena",
+       0.0004
+      ],
+      [
+       "Proteles cristata",
+       0.0001
+      ],
+      [
+       "Canis",
+       0.0001
+      ],
+      [
+       "Otocyon megalotis",
+       0.0
+      ]
+     ]
+    },
+    "decision": "accept"
+   },
+   {
+    "t": 1792765314.908,
+    "tool": "decide",
+    "inputs": {
+     "event": {
+      "start": 0,
+      "end": 2,
+      "peak_frame": 2,
+      "peak_area": 22240.5,
+      "box": [
+       428,
+       596,
+       241,
+       184
+      ]
+     }
+    },
+    "observation": {
+     "label": "spotted hyaena",
+     "score": 0.9993
+    },
+    "decision": "log: confident identification"
+   }
+  ]
+ },
+ "leopard-lookalike": {
+  "source": "samples/leopard-lookalike/frame1.jpg,samples/leopard-lookalike/frame2.jpg,samples/leopard-lookalike/frame3.jpg",
+  "classifier": "speciesnet:v4.0.3a",
+  "fps": 0.0,
+  "frames_read": 3,
+  "events": [
+   {
+    "event": {
+     "start": 2,
+     "end": 2,
+     "peak_frame": 2,
+     "peak_area": 15510.5,
+     "box": [
+      690,
+      841,
+      431,
+      63
+     ]
+    },
+    "frame_used": 2,
+    "quality": {
+     "brightness": 101.4,
+     "sharpness": 7182.5,
+     "is_night_ir": true,
+     "usable": true
+    },
+    "prediction": {
+     "label": "cheetah",
+     "scientific": "Acinonyx jubatus",
+     "score": 0.6782,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Leptailurus serval",
+       0.1554
+      ],
+      [
+       "Panthera pardus",
+       0.1296
+      ],
+      [
+       "Panthera onca",
+       0.0264
+      ]
+     ]
+    },
+    "action": "review",
+    "reason": "looks like cheetah, but could be Panthera pardus (0.13): leopard recorded",
+    "attempts": 2
+   }
+  ],
+  "trace": [
+   {
+    "t": 1792765314.926,
+    "tool": "read_frames",
+    "inputs": {
+     "source": "samples/leopard-lookalike/frame1.jpg,samples/leopard-lookalike/frame2.jpg,samples/leopard-lookalike/frame3.jpg",
+     "stills": true
+    },
+    "observation": {
+     "frames": 3,
+     "fps": 0.0
+    },
+    "decision": "detect motion"
+   },
+   {
+    "t": 1792765315.265,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.004,
+     "diff_threshold": 28,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 0
+    },
+    "decision": "no motion: retry with a more sensitive threshold"
+   },
+   {
+    "t": 1792765315.526,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.0015,
+     "diff_threshold": 16,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 1
+    },
+    "decision": "triage each event"
+   },
+   {
+    "t": 1792765316.021,
+    "tool": "classify",
+    "inputs": {
+     "frame": 2,
+     "crop": [
+      93,
+      645
+     ]
+    },
+    "observation": {
+     "label": "blank",
+     "scientific": "",
+     "score": 0.2168,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Leptailurus serval",
+       0.1472
+      ],
+      [
+       "Acinonyx jubatus",
+       0.0817
+      ],
+      [
+       "Panthera pardus",
+       0.0816
+      ]
+     ]
+    },
+    "decision": "unsure: try another frame"
+   },
+   {
+    "t": 1792765320.052,
+    "tool": "detect_animals",
+    "inputs": {
+     "frame": 2,
+     "model": "megadetector-v5a",
+     "why": "motion but blank"
+    },
+    "observation": {
+     "detections": [
+      {
+       "label": "animal",
+       "score": 0.8087,
+       "box": [
+        20,
+        625,
+        162,
+        271
+       ]
+      },
+      {
+       "label": "animal",
+       "score": 0.6004,
+       "box": [
+        26,
+        621,
+        1240,
+        273
+       ]
+      },
+      {
+       "label": "animal",
+       "score": 0.3005,
+       "box": [
+        628,
+        840,
+        651,
+        56
+       ]
+      }
+     ]
+    },
+    "decision": "re-crop around the detector's box"
+   },
+   {
+    "t": 1792765320.501,
+    "tool": "classify",
+    "inputs": {
+     "frame": 2,
+     "box": "detector"
+    },
+    "observation": {
+     "label": "cheetah",
+     "scientific": "Acinonyx jubatus",
+     "score": 0.4618,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Panthera pardus",
+       0.2721
+      ],
+      [
+       "Leptailurus serval",
+       0.1994
+      ],
+      [
+       "Panthera onca",
+       0.0421
+      ]
+     ]
+    },
+    "decision": "unsure"
+   },
+   {
+    "t": 1792765320.973,
+    "tool": "classify_enhanced",
+    "inputs": {
+     "frame": 2
+    },
+    "observation": {
+     "label": "cheetah",
+     "scientific": "Acinonyx jubatus",
+     "score": 0.6782,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Leptailurus serval",
+       0.1554
+      ],
+      [
+       "Panthera pardus",
+       0.1296
+      ],
+      [
+       "Panthera onca",
+       0.0264
+      ]
+     ]
+    },
+    "decision": "still unsure: try another frame"
+   },
+   {
+    "t": 1792765320.987,
+    "tool": "decide",
+    "inputs": {
+     "event": {
+      "start": 2,
+      "end": 2,
+      "peak_frame": 2,
+      "peak_area": 15510.5,
+      "box": [
+       690,
+       841,
+       431,
+       63
+      ]
+     }
+    },
+    "observation": {
+     "label": "cheetah",
+     "score": 0.6782
+    },
+    "decision": "review: looks like cheetah, but could be Panthera pardus (0.13): leopard recorded"
+   }
+  ]
+ },
+ "impala-dark": {
+  "source": "samples/impala-dark/frame1.jpg,samples/impala-dark/frame2.jpg,samples/impala-dark/frame3.jpg",
+  "classifier": "speciesnet:v4.0.3a",
+  "fps": 0.0,
+  "frames_read": 3,
+  "events": [
+   {
+    "event": {
+     "start": 0,
+     "end": 2,
+     "peak_frame": 2,
+     "peak_area": 7378.0,
+     "box": [
+      983,
+      444,
+      126,
+      134
+     ]
+    },
+    "frame_used": 0,
+    "quality": {
+     "brightness": 97.0,
+     "sharpness": 6265.2,
+     "is_night_ir": true,
+     "usable": true
+    },
+    "prediction": {
+     "label": "thomson's gazelle",
+     "scientific": "Eudorcas thomsonii",
+     "score": 0.709,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Nanger granti",
+       0.2605
+      ],
+      [
+       "Madoqua",
+       0.0176
+      ],
+      [
+       "Aepyceros melampus",
+       0.0058
+      ]
+     ]
+    },
+    "action": "log",
+    "reason": "confident identification",
+    "attempts": 3
+   }
+  ],
+  "trace": [
+   {
+    "t": 1792765321.004,
+    "tool": "read_frames",
+    "inputs": {
+     "source": "samples/impala-dark/frame1.jpg,samples/impala-dark/frame2.jpg,samples/impala-dark/frame3.jpg",
+     "stills": true
+    },
+    "observation": {
+     "frames": 3,
+     "fps": 0.0
+    },
+    "decision": "detect motion"
+   },
+   {
+    "t": 1792765321.29,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.004,
+     "diff_threshold": 28,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 0
+    },
+    "decision": "no motion: retry with a more sensitive threshold"
+   },
+   {
+    "t": 1792765321.595,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.0015,
+     "diff_threshold": 16,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 1
+    },
+    "decision": "triage each event"
+   },
+   {
+    "t": 1792765322.047,
+    "tool": "enhance",
+    "inputs": {
+     "frame": 2,
+     "before": {
+      "brightness": 37.8,
+      "sharpness": 403.0,
+      "is_night_ir": true,
+      "usable": false
+     }
+    },
+    "observation": {
+     "after": {
+      "brightness": 97.2,
+      "sharpness": 6270.7,
+      "is_night_ir": true,
+      "usable": true
+     }
+    },
+    "decision": "use enhanced frame"
+   },
+   {
+    "t": 1792765322.512,
+    "tool": "compare",
+    "inputs": {
+     "frame": 2
+    },
+    "observation": {
+     "raw": 0.6686,
+     "enhanced": 0.6634
+    },
+    "decision": "raw frame was more informative than the enhanced one"
+   },
+   {
+    "t": 1792765322.512,
+    "tool": "classify",
+    "inputs": {
+     "frame": 2,
+     "crop": [
+      200,
+      188
+     ]
+    },
+    "observation": {
+     "label": "impala",
+     "scientific": "Aepyceros melampus",
+     "score": 0.6686,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Nanger granti",
+       0.2601
+      ],
+      [
+       "Eudorcas thomsonii",
+       0.0322
+      ],
+      [
+       "Redunca",
+       0.0164
+      ],
+      [
+       "Madoqua",
+       0.0064
+      ]
+     ]
+    },
+    "decision": "unsure: try another frame"
+   },
+   {
+    "t": 1792765322.927,
+    "tool": "classify_enhanced",
+    "inputs": {
+     "frame": 2
+    },
+    "observation": {
+     "label": "impala",
+     "scientific": "Aepyceros melampus",
+     "score": 0.6634,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Nanger granti",
+       0.2054
+      ],
+      [
+       "Redunca",
+       0.051
+      ],
+      [
+       "Madoqua",
+       0.0413
+      ],
+      [
+       "Eudorcas thomsonii",
+       0.0248
+      ]
+     ]
+    },
+    "decision": "still unsure: try another frame"
+   },
+   {
+    "t": 1792765323.387,
+    "tool": "enhance",
+    "inputs": {
+     "frame": 0,
+     "before": {
+      "brightness": 37.5,
+      "sharpness": 402.6,
+      "is_night_ir": true,
+      "usable": false
+     }
+    },
+    "observation": {
+     "after": {
+      "brightness": 97.0,
+      "sharpness": 6265.2,
+      "is_night_ir": true,
+      "usable": true
+     }
+    },
+    "decision": "use enhanced frame"
+   },
+   {
+    "t": 1792765323.805,
+    "tool": "classify",
+    "inputs": {
+     "frame": 0,
+     "crop": [
+      105,
+      68
+     ]
+    },
+    "observation": {
+     "label": "blank",
+     "scientific": "",
+     "score": 0.9596,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Eudorcas thomsonii",
+       0.0113
+      ],
+      [
+       "Odocoileus virginianus",
+       0.0072
+      ],
+      [
+       "Nanger granti",
+       0.0031
+      ],
+      [
+       "Madoqua",
+       0.003
+      ]
+     ]
+    },
+    "decision": "accept"
+   },
+   {
+    "t": 1792765327.463,
+    "tool": "detect_animals",
+    "inputs": {
+     "frame": 0,
+     "model": "megadetector-v5a",
+     "why": "motion but blank"
+    },
+    "observation": {
+     "detections": [
+      {
+       "label": "animal",
+       "score": 0.8673,
+       "box": [
+        1111,
+        378,
+        167,
+        286
+       ]
+      }
+     ]
+    },
+    "decision": "re-crop around the detector's box"
+   },
+   {
+    "t": 1792765327.848,
+    "tool": "classify",
+    "inputs": {
+     "frame": 0,
+     "box": "detector"
+    },
+    "observation": {
+     "label": "thomson's gazelle",
+     "scientific": "Eudorcas thomsonii",
+     "score": 0.709,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Nanger granti",
+       0.2605
+      ],
+      [
+       "Madoqua",
+       0.0176
+      ],
+      [
+       "Aepyceros melampus",
+       0.0058
+      ]
+     ]
+    },
+    "decision": "accept"
+   },
+   {
+    "t": 1792765327.848,
+    "tool": "decide",
+    "inputs": {
+     "event": {
+      "start": 0,
+      "end": 2,
+      "peak_frame": 2,
+      "peak_area": 7378.0,
+      "box": [
+       983,
+       444,
+       126,
+       134
+      ]
+     }
+    },
+    "observation": {
+     "label": "thomson's gazelle",
+     "score": 0.709
+    },
+    "decision": "log: confident identification"
+   }
+  ]
+ },
+ "empty-wind": {
+  "source": "samples/empty-wind/frame1.jpg,samples/empty-wind/frame2.jpg,samples/empty-wind/frame3.jpg",
+  "classifier": "speciesnet:v4.0.3a",
+  "fps": 0.0,
+  "frames_read": 3,
+  "events": [
+   {
+    "event": {
+     "start": 0,
+     "end": 2,
+     "peak_frame": 0,
+     "peak_area": 399862.0,
+     "box": [
+      339,
+      0,
+      941,
+      896
+     ]
+    },
+    "frame_used": 1,
+    "quality": {
+     "brightness": 116.6,
+     "sharpness": 955.3,
+     "is_night_ir": false,
+     "usable": true
+    },
+    "prediction": {
+     "label": "blank",
+     "scientific": "",
+     "score": 1.0,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Odocoileus virginianus",
+       0.0
+      ],
+      [
+       "Bos taurus",
+       0.0
+      ]
+     ]
+    },
+    "action": "discard",
+    "reason": "empty frame",
+    "attempts": 1
+   }
+  ],
+  "trace": [
+   {
+    "t": 1792765327.865,
+    "tool": "read_frames",
+    "inputs": {
+     "source": "samples/empty-wind/frame1.jpg,samples/empty-wind/frame2.jpg,samples/empty-wind/frame3.jpg",
+     "stills": true
+    },
+    "observation": {
+     "frames": 3,
+     "fps": 0.0
+    },
+    "decision": "detect motion"
+   },
+   {
+    "t": 1792765328.144,
+    "tool": "detect_motion",
+    "inputs": {
+     "min_area_frac": 0.004,
+     "diff_threshold": 28,
+     "mode": "burst"
+    },
+    "observation": {
+     "events": 1
+    },
+    "decision": "triage each event"
+   },
+   {
+    "t": 1792765328.59,
+    "tool": "classify",
+    "inputs": {
+     "frame": 1,
+     "crop": [
+      417,
+      524
+     ]
+    },
+    "observation": {
+     "label": "blank",
+     "scientific": "",
+     "score": 1.0,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Odocoileus virginianus",
+       0.0
+      ],
+      [
+       "Bos taurus",
+       0.0
+      ]
+     ]
+    },
+    "decision": "accept"
+   },
+   {
+    "t": 1792765332.089,
+    "tool": "detect_animals",
+    "inputs": {
+     "frame": 1,
+     "model": "megadetector-v5a",
+     "why": "motion but blank"
+    },
+    "observation": {
+     "detections": []
+    },
+    "decision": "detector agrees: nothing there"
+   },
+   {
+    "t": 1792765332.089,
+    "tool": "decide",
+    "inputs": {
+     "event": {
+      "start": 0,
+      "end": 2,
+      "peak_frame": 0,
+      "peak_area": 399862.0,
+      "box": [
+       339,
+       0,
+       941,
+       896
+      ]
+     }
+    },
+    "observation": {
+     "label": "blank",
+     "score": 1.0
+    },
+    "decision": "discard: empty frame"
+   }
+  ]
+ }
+}

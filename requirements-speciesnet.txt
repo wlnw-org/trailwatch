@@ -1,2 +1,8 @@
-# Optional: the real classifier. Large (PyTorch). Set TRAILWATCH_CLASSIFIER=speciesnet to use it.
+# Optional: the real models (SpeciesNet classifier and MegaDetector). Large (PyTorch, about 1 GB).
+# Use with TRAILWATCH_CLASSIFIER=speciesnet. Versions pinned to the ones the benchmark ran with.
+-r requirements.txt
 speciesnet==5.0.6
+torch==2.14.1
+torchvision==0.29.1
+yolov5==7.0.11
+opencv-python==5.0.0.93

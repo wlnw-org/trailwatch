@@ -3,12 +3,15 @@
 The agent never acts on a fixed vision result. Each step looks at what the
 OpenCV tools measured and chooses the next tool call:
 
-  * no motion found          -> re-run detection with a lower threshold
-  * frame too dark or blurry -> enhance it, then re-check quality
-  * still unusable           -> try the next sharpest frame of the event
-  * classifier unsure        -> try another frame or the enhanced crop
-  * then decide an action    -> log, send to human review, or raise an alert
-                                that waits for a person to approve it
+  * no motion found            -> re-run detection with a lower threshold
+  * still nothing              -> ask MegaDetector, an animal detector that is
+                                  slower but finds animals that stood still
+  * frame too dark or blurry   -> enhance it, then re-check quality
+  * classifier unsure          -> try another frame or the enhanced crop
+  * motion but "blank"         -> ask MegaDetector whether something is there,
+                                  and re-crop around what it finds
+  * then decide an action      -> log, send to human review, discard, or raise
+                                  an alert that waits for a person to approve it
 
 Every step is written to a trace so judges and reviewers can see why each
 decision was made.
@@ -16,14 +19,15 @@ decision was made.
 from __future__ import annotations
 
 import json
+import os
 import time
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 import cv2
 
 from . import vision
-from .classify import Classifier, Prediction, load_classifier
+from .classify import Classifier, MegaDetector, Prediction, load_classifier, load_detector
 
 DEFAULT_POLICY = {
     "accept_score": 0.70,          # at or above: confident enough to log automatically
@@ -35,7 +39,8 @@ DEFAULT_POLICY = {
         "Panthera pardus": "leopard recorded",
         "Crocodylus palustris": "mugger crocodile outside the enclosure zone",
     },
-    "alerts_need_approval": True,  # a person confirms before any alert leaves the system
+    "alerts_need_approval": True,
+    "lookalike_score": 0.10,       # a watch-listed species this close behind the top answer goes to review  # a person confirms before any alert leaves the system
 }
 
 
@@ -61,7 +66,7 @@ class EventResult:
 
 @dataclass
 class Run:
-    video: str
+    source: str
     classifier: str
     fps: float
     frames_read: int
@@ -72,43 +77,99 @@ class Run:
         return asdict(self)
 
 
+def _better(new: Prediction, old: Prediction | None) -> bool:
+    """An animal beats 'blank' (motion was seen); otherwise the surer prediction wins."""
+    if old is None:
+        return True
+    if (new.label == "blank") != (old.label == "blank"):
+        return new.label != "blank"
+    return new.score > old.score
+
+
+def _sources(source) -> tuple[str, list[str] | None]:
+    """A video path, a folder of stills, or a list of still paths (one trigger burst)."""
+    if isinstance(source, (list, tuple)):
+        return ",".join(map(str, source)), [str(p) for p in source]
+    p = Path(source)
+    if p.is_dir():
+        files = sorted(str(f) for f in p.iterdir() if f.suffix.lower() in vision.IMAGE_EXTS)
+        return str(p), files
+    if p.suffix.lower() in vision.IMAGE_EXTS:
+        return str(p), [str(p)]
+    return str(p), None
+
+
 class TriageAgent:
-    def __init__(self, classifier: Classifier | None = None, policy: dict | None = None, out_dir: str | None = None):
+    def __init__(self, classifier: Classifier | None = None, policy: dict | None = None,
+                 out_dir: str | None = None, detector: MegaDetector | None | str = "auto"):
         self.clf = classifier or load_classifier()
+        self.det = load_detector() if detector == "auto" else detector
         self.policy = {**DEFAULT_POLICY, **(policy or {})}
         self.out_dir = Path(out_dir) if out_dir else None
 
     def _log(self, run: Run, tool: str, inputs: dict, observation: dict, decision: str) -> None:
         run.trace.append(Step(round(time.time(), 3), tool, inputs, observation, decision))
 
-    def run(self, video_path: str) -> Run:
-        frames, fps = vision.read_frames(video_path)
-        run = Run(video_path, self.clf.name, fps, len(frames))
-        self._log(run, "read_frames", {"path": video_path}, {"frames": len(frames), "fps": fps},
-                  "detect motion")
+    # ---- perception -------------------------------------------------------------------------
 
-        params = {"min_area_frac": 0.002, "var_threshold": 32.0}
-        events = vision.detect_motion(frames, **params)
-        self._log(run, "detect_motion", params, {"events": len(events)},
-                  "triage each event" if events else "no motion: retry with a more sensitive threshold")
-        if not events:
-            params = {"min_area_frac": 0.0008, "var_threshold": 16.0}
-            events = vision.detect_motion(frames, **params)
-            self._log(run, "detect_motion", params, {"events": len(events)},
-                      "triage each event" if events else "still nothing: mark clip as empty")
+    def _find_events(self, run: Run, frames: list[vision.Frame], burst: bool) -> list[vision.MotionEvent]:
+        if burst:
+            tries = [{"min_area_frac": 0.004, "diff_threshold": 28}, {"min_area_frac": 0.0015, "diff_threshold": 16}]
+            detect = vision.detect_motion_burst
+        else:
+            tries = [{"min_area_frac": 0.002, "var_threshold": 32.0}, {"min_area_frac": 0.0008, "var_threshold": 16.0}]
+            detect = vision.detect_motion
+        events: list[vision.MotionEvent] = []
+        for i, params in enumerate(tries):
+            events = detect(frames, **params)
+            more = i + 1 < len(tries)
+            self._log(run, "detect_motion", {**params, "mode": "burst" if burst else "video"}, {"events": len(events)},
+                      "triage each event" if events else ("no motion: retry with a more sensitive threshold" if more
+                                                          else "still no motion: ask the animal detector"))
+            if events:
+                return events
+        if self.det is None or not frames:
+            self._log(run, "decide", {}, {}, "no detector available: mark as empty")
+            return []
+        f = max(frames, key=lambda fr: vision.assess_quality(fr.image).sharpness)
+        img = f.image if vision.assess_quality(f.image).usable else vision.enhance(f.image)
+        dets = self.det.detect(img)
+        self._log(run, "detect_animals", {"frame": f.index, "model": self.det.name},
+                  {"detections": [asdict(d) for d in dets[:3]]},
+                  "use the detector's box" if dets else "nothing found: empty frame")
+        if not dets:
+            return []
+        d = dets[0]
+        ev = vision.MotionEvent(f.index, f.index, f.index, float(d.box[2] * d.box[3]), d.box)
+        ev.boxes[f.index] = d.box
+        return [ev]
 
-        for ev in events:
+    def run(self, source) -> Run:
+        name, stills = _sources(source)
+        if stills is not None:
+            frames, fps = vision.read_images(stills), 0.0
+        else:
+            frames, fps = vision.read_frames(name)
+        run = Run(name, self.clf.name, fps, len(frames))
+        self._log(run, "read_frames", {"source": name, "stills": stills is not None},
+                  {"frames": len(frames), "fps": fps}, "detect motion")
+        for ev in self._find_events(run, frames, burst=stills is not None):
             run.events.append(self._triage(run, frames, ev))
+        if not run.events:
+            run.events.append(EventResult({}, None, None, None, "discard", "empty: no motion and no animal found", 0))
         if self.out_dir:
             self.out_dir.mkdir(parents=True, exist_ok=True)
             (self.out_dir / "trace.json").write_text(json.dumps(run.to_dict(), indent=2, default=str))
         return run
+
+    # ---- decision loop per event ------------------------------------------------------------
 
     def _triage(self, run: Run, frames: list[vision.Frame], ev: vision.MotionEvent) -> EventResult:
         p = self.policy
         tried: set[int] = set()
         best: tuple[Prediction, int, vision.Quality] | None = None
         attempts = 0
+        checked_blank = False
         while attempts < p["max_frame_attempts"]:
             attempts += 1
             f = vision.best_frame(frames, ev, avoid=tried)
@@ -131,8 +192,27 @@ class TriageAgent:
                           "raw frame was more informative than the enhanced one")
                 pred = raw_pred
             self._log(run, "classify", {"frame": f.index, "crop": list(c.shape[:2])}, asdict(pred),
-                      "accept" if pred.score >= p["accept_score"] else "unsure: try another frame")
-            if best is None or pred.score > best[0].score:
+                      ("classifier sees nothing, but something moved: check" if pred.label == "blank" and self.det
+                       else "accept" if pred.score >= p["accept_score"] else "unsure: try another frame"))
+
+            if pred.label == "blank" and self.det is not None and not checked_blank:
+                # Motion said something moved; the classifier saw nothing. Ask the detector to settle it.
+                checked_blank = True
+                dets = self.det.detect(img)
+                self._log(run, "detect_animals", {"frame": f.index, "model": self.det.name, "why": "motion but blank"},
+                          {"detections": [asdict(d) for d in dets[:3]]},
+                          "re-crop around the detector's box" if dets else "detector agrees: nothing there")
+                if dets:
+                    d = dets[0]
+                    if d.label in ("human", "vehicle"):
+                        pred = Prediction(d.label, "", d.score, self.det.name)
+                    else:
+                        ev.boxes[f.index] = d.box
+                        pred = self.clf.classify(vision.crop(img, d.box))
+                        self._log(run, "classify", {"frame": f.index, "box": "detector"}, asdict(pred),
+                                  "accept" if pred.score >= p["accept_score"] else "unsure")
+
+            if _better(pred, best[0] if best else None):
                 best = (pred, f.index, q)
                 if self.out_dir:
                     self.out_dir.mkdir(parents=True, exist_ok=True)
@@ -147,7 +227,7 @@ class TriageAgent:
                 pe = self.clf.classify(ce)
                 self._log(run, "classify_enhanced", {"frame": f.index}, asdict(pe),
                           "accept" if pe.score >= p["accept_score"] else "still unsure: try another frame")
-                if pe.score > best[0].score:  # type: ignore[index]
+                if _better(pe, best[0]):  # type: ignore[index]
                     best = (pe, f.index, vision.assess_quality(e_img))
                 if pe.score >= p["accept_score"]:
                     break
@@ -160,13 +240,29 @@ class TriageAgent:
                   f"{action}: {reason}")
         return EventResult(ev.to_dict(), idx, q.to_dict(), asdict(pred), action, reason, attempts)
 
+    def _watch(self, sci: str) -> str | None:
+        wl = self.policy["watchlist"]
+        if sci in wl:
+            return wl[sci]
+        genus = sci.split(" ")[0] if sci else ""
+        for name, reason in wl.items():
+            if genus and " " not in sci and name.split(" ")[0] == genus:
+                return reason + " (genus-level identification)"
+        return None
+
     def _decide(self, pred: Prediction, q: vision.Quality) -> tuple[str, str]:
         p = self.policy
-        if pred.scientific in p["watchlist"]:
+        why = self._watch(pred.scientific)
+        if why:
             if pred.score >= p["review_score"]:
                 act = "alert_pending_approval" if p["alerts_need_approval"] else "alert"
-                return act, p["watchlist"][pred.scientific]
+                return act, why
             return "review", "possible watchlist species, low confidence"
+        for sci, score in pred.alternatives[:2]:
+            # A look-alike of a watch-listed species (leopard and cheetah, say): a person should look.
+            why = self._watch(sci)
+            if why and score >= p["lookalike_score"]:
+                return "review", f"looks like {pred.label}, but could be {sci} ({score:.2f}): {why}"
         if pred.label in ("human", "vehicle"):
             return "discard", "person or vehicle: not kept, for privacy"
         if pred.label == "blank":
@@ -176,3 +272,16 @@ class TriageAgent:
         if pred.score >= p["review_score"]:
             return "review", "classifier unsure; a person should confirm"
         return "review", "poor image or unknown animal" + (" (night infrared)" if q.is_night_ir else "")
+
+
+def policy_from_env() -> dict:
+    """TRAILWATCH_WATCHLIST='Loxodonta africana=elephant;Panthera leo=lion' replaces the default watchlist."""
+    raw = os.environ.get("TRAILWATCH_WATCHLIST", "").strip()
+    if not raw:
+        return {}
+    wl = {}
+    for item in raw.split(";"):
+        if "=" in item:
+            k, v = item.split("=", 1)
+            wl[k.strip()] = v.strip()
+    return {"watchlist": wl} if wl else {}

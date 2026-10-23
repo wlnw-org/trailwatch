@@ -100,6 +100,59 @@ def detect_motion(frames: list[Frame], min_area_frac: float = 0.002, var_thresho
     return events
 
 
+IMAGE_EXTS = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff")
+
+
+def read_images(paths: list[str], max_width: int = 1280) -> list[Frame]:
+    """A camera-trap burst: a few stills taken one after another by the same trigger."""
+    frames: list[Frame] = []
+    for p in paths:
+        img = cv2.imread(str(p))
+        if img is None:
+            continue
+        h, w = img.shape[:2]
+        if w > max_width:
+            img = cv2.resize(img, (max_width, int(h * max_width / w)), interpolation=cv2.INTER_AREA)
+        frames.append(Frame(len(frames), img))
+    return frames
+
+
+def detect_motion_burst(frames: list[Frame], min_area_frac: float = 0.004, diff_threshold: int = 28) -> list[MotionEvent]:
+    """Motion in a burst of stills: a median background, then a per-frame difference.
+
+    Bursts hold 2 to 10 frames, too few for MOG2 to learn a background, so the
+    median of the burst stands in for it. The median difference is subtracted
+    first, so a change in exposure between shots is not mistaken for an animal.
+    """
+    if len(frames) < 2:
+        return []
+    blurred = [cv2.GaussianBlur(f.image, (5, 5), 0) for f in frames]
+    bg = np.median(np.stack(blurred), axis=0).astype(np.uint8)
+    h, w = bg.shape[:2]
+    min_area = min_area_frac * h * w
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    ev: MotionEvent | None = None
+    for f, g in zip(frames, blurred):
+        d = cv2.absdiff(g, bg).max(axis=2)  # largest change in any colour channel
+        d = cv2.subtract(d, np.full_like(d, int(np.median(d))))
+        mask = cv2.threshold(d, diff_threshold, 255, cv2.THRESH_BINARY)[1]
+        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+        mask = cv2.dilate(mask, kernel, iterations=3)
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        big = [c for c in contours if cv2.contourArea(c) >= min_area]
+        if not big:
+            continue
+        c = max(big, key=cv2.contourArea)
+        area, box = float(cv2.contourArea(c)), cv2.boundingRect(c)
+        if ev is None:
+            ev = MotionEvent(f.index, f.index, f.index, area, box)
+        ev.end = f.index
+        if area > ev.peak_area:
+            ev.peak_area, ev.peak_frame, ev.box = area, f.index, box
+        ev.boxes[f.index] = box
+    return [ev] if ev else []
+
+
 def assess_quality(img: np.ndarray, min_brightness: float = 40.0, min_sharpness: float = 60.0) -> Quality:
     grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     brightness = float(grey.mean())

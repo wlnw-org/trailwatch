@@ -22,14 +22,14 @@ from trailwatch.agent import TriageAgent  # noqa: E402
 from trailwatch.classify import StubClassifier  # noqa: E402
 from trailwatch.synth import make_clip  # noqa: E402
 
-EXPECTED = {"elephant": "alert_pending_approval", "deer": "log", "unknown": "review", "empty": None}
+EXPECTED = {"elephant": "alert_pending_approval", "deer": "log", "unknown": "review", "empty": "discard"}
 
 
 def baseline(agent: TriageAgent, path: str):
     frames, _ = vision.read_frames(path)
     evs = vision.detect_motion(frames)
     if not evs:
-        return None
+        return "discard"
     ev = evs[0]
     f = next(fr for fr in frames if fr.index == ev.peak_frame)
     pred = agent.clf.classify(vision.crop(f.image, ev.box))
@@ -37,7 +37,7 @@ def baseline(agent: TriageAgent, path: str):
 
 
 def main(n: int = 5) -> dict:
-    agent = TriageAgent(StubClassifier())
+    agent = TriageAgent(StubClassifier(), detector=None)
     rows = []
     with tempfile.TemporaryDirectory() as d:
         for kind, dark, blur in itertools.product(EXPECTED, (False, True), (0, 3)):

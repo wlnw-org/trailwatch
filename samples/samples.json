@@ -1,0 +1,68 @@
+[
+ {
+  "id": "elephant-detector",
+  "title": "Elephant at the frame edge",
+  "label": "elephant",
+  "source": "Snapshot Serengeti, SER_S9#D07#3#262",
+  "files": [
+   "frame1.jpg",
+   "frame2.jpg",
+   "frame3.jpg"
+  ]
+ },
+ {
+  "id": "gazelle-detector",
+  "title": "Thomson's gazelle",
+  "label": "gazellethomsons",
+  "source": "Snapshot Serengeti, SER_S7#E09#2#981",
+  "files": [
+   "frame1.jpg",
+   "frame2.jpg",
+   "frame3.jpg"
+  ]
+ },
+ {
+  "id": "hyena-night",
+  "title": "Spotted hyena at night (infrared)",
+  "label": "hyenaspotted",
+  "source": "Snapshot Serengeti, SER_S1#D05#5#79",
+  "files": [
+   "frame1.jpg",
+   "frame2.jpg",
+   "frame3.jpg"
+  ]
+ },
+ {
+  "id": "leopard-lookalike",
+  "title": "Leopard or cheetah?",
+  "label": "leopard",
+  "source": "Snapshot Serengeti, SER_S2#I07#4#27",
+  "files": [
+   "frame1.jpg",
+   "frame2.jpg",
+   "frame3.jpg"
+  ]
+ },
+ {
+  "id": "impala-dark",
+  "title": "Impala in a dark frame (a known failure)",
+  "label": "impala",
+  "source": "Snapshot Serengeti, SER_S1#E03#6#156",
+  "files": [
+   "frame1.jpg",
+   "frame2.jpg",
+   "frame3.jpg"
+  ]
+ },
+ {
+  "id": "empty-wind",
+  "title": "Empty frame, grass moving",
+  "label": "empty",
+  "source": "Snapshot Serengeti, SER_S8#E08#2#552",
+  "files": [
+   "frame1.jpg",
+   "frame2.jpg",
+   "frame3.jpg"
+  ]
+ }
+]
