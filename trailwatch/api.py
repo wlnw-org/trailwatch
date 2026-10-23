@@ -1,6 +1,7 @@
 """HTTP endpoint: upload a clip or a burst of stills, get the agent's decisions and full trace back."""
 from __future__ import annotations
 
+import base64
 import json
 import os
 import tempfile
@@ -9,8 +10,10 @@ import uuid
 from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
+import cv2
 from fastapi.responses import FileResponse, HTMLResponse
 
+from . import vision
 from .agent import TriageAgent, policy_from_env
 from .synth import make_clip
 
@@ -46,7 +49,8 @@ function esc(t){return String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>
 async function show(r){if(!r.ok){o.innerHTML='<div class=card>Error '+r.status+': '+esc(await r.text())+'</div>';return}
  const j=await r.json();let h='';
  for(const e of j.events){const p=e.prediction||{};h+='<div class=card><span class="act '+(e.action.startsWith('alert')?'alert':'')+'">'+esc(e.action)+
-  '</span> '+esc(e.reason)+(p.label?'<br>'+esc(p.label)+(p.scientific?' (<i>'+esc(p.scientific)+'</i>)':'')+', score '+p.score:'')+'</div>'}
+  '</span> '+esc(e.reason)+(p.label?'<br>'+esc(p.label)+(p.scientific?' (<i>'+esc(p.scientific)+'</i>)':'')+', score '+p.score:'')+
+  (e.annotated&&e.annotated.startsWith('data:image/jpeg;base64,')?'<br><img src="'+e.annotated+'" alt="frame used, with the box the agent classified">':'')+'</div>'}
  h+='<div class=card><b>Agent trace</b> <span class=muted>('+j.trace.length+' steps, '+esc(j.classifier)+')</span><ol>';
  for(const s of j.trace){h+='<li><code>'+esc(s.tool)+'</code> '+esc(s.decision)+'</li>'}
  o.innerHTML=h+'</ol></div>'}
@@ -71,12 +75,32 @@ def health() -> dict:
     return {"ok": True, "classifier": agent.clf.name, "detector": agent.det.name if agent.det else None}
 
 
-def _summary(run) -> dict:
+def _annotate(stills: list[str] | None, e: dict) -> str | None:
+    """The frame the agent used, with its box drawn, as a small JPEG data URL (stills only)."""
+    if not stills or e.get("frame_used") is None or not e.get("box"):
+        return None
+    frames = vision.read_images([stills[e["frame_used"]]])
+    if not frames:
+        return None
+    img = frames[0].image.copy()
+    x, y, w, h = e["box"]
+    colour = (32, 96, 200) if e["action"].startswith("alert") else (60, 140, 60)
+    cv2.rectangle(img, (x, y), (x + w, y + h), colour, 3)
+    label = ((e.get("prediction") or {}).get("label") or "")[:40]
+    cv2.putText(img, f"{e['action']}: {label}", (x, max(28, y - 10)), cv2.FONT_HERSHEY_SIMPLEX, 0.9, colour, 2)
+    img = cv2.resize(img, (800, int(img.shape[0] * 800 / img.shape[1])))
+    ok, buf = cv2.imencode(".jpg", img, [cv2.IMWRITE_JPEG_QUALITY, 80])
+    return "data:image/jpeg;base64," + base64.b64encode(buf.tobytes()).decode() if ok else None
+
+
+def _summary(run, stills: list[str] | None = None) -> dict:
     d = run.to_dict()
-    return {"classifier": d["classifier"], "frames": d["frames_read"],
-            "events": [{k: e[k] for k in ("action", "reason", "prediction", "attempts", "frame_used", "quality")}
-                       for e in d["events"]],
-            "trace": d["trace"]}
+    events = []
+    for e in d["events"]:
+        out = {k: e[k] for k in ("action", "reason", "prediction", "attempts", "frame_used", "quality", "box")}
+        out["annotated"] = _annotate(stills, e)
+        events.append(out)
+    return {"classifier": d["classifier"], "frames": d["frames_read"], "events": events, "trace": d["trace"]}
 
 
 def _run(source, policy: dict | None = None):
@@ -112,10 +136,11 @@ async def triage(files: list[UploadFile] = File(...)) -> dict:
         if len(kinds) > 1 or (True in kinds and len(paths) > 1):
             raise HTTPException(400, "send one video, or images only")
         try:
+            stills = None if True in kinds else paths
             run = _run(paths[0] if True in kinds else paths)
+            return _summary(run, stills)
         except ValueError as e:
             raise HTTPException(422, str(e))
-    return _summary(run)
 
 
 def _samples() -> list[dict]:
@@ -133,7 +158,8 @@ def run_sample(sid: str) -> dict:
     s = next((x for x in _samples() if x["id"] == sid), None)
     if s is None:
         raise HTTPException(404, "no such sample")
-    return _summary(_run([str(SAMPLES / sid / f) for f in s["files"]], {"watchlist": SERENGETI}))
+    paths = [str(SAMPLES / sid / f) for f in s["files"]]
+    return _summary(_run(paths, {"watchlist": SERENGETI}), paths)
 
 
 @app.get("/samples/{sid}/{name}")

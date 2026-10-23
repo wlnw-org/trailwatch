@@ -6,15 +6,15 @@
   },
   "agent": {
     "bursts": 260,
-    "correct_action": 0.927,
+    "correct_action": 0.935,
     "missed_animals": "8 of 240",
-    "watchlist_alerts_caught": "50 of 60",
-    "watchlist_reaching_a_person": "57 of 60",
+    "watchlist_alerts_caught": "52 of 60",
+    "watchlist_reaching_a_person": "56 of 60",
     "false_alerts": 0,
     "people_kept": "0 of 0",
-    "auto_logged": 163,
-    "auto_logged_correct_genus": "156 of 163",
-    "sent_to_review": 20
+    "auto_logged": 165,
+    "auto_logged_correct_genus": "159 of 165",
+    "sent_to_review": 16
   },
   "baseline": {
     "bursts": 260,
@@ -31,14 +31,14 @@
   "tool_use": {
     "read_frames": 260,
     "detect_motion": 331,
-    "classify": 306,
+    "classify": 323,
     "decide": 249,
-    "detect_animals": 73,
-    "classify_enhanced": 43,
+    "detect_animals": 102,
+    "classify_enhanced": 25,
     "enhance": 8,
     "compare": 2
   },
-  "mean_ms_per_burst_agent": 2201,
+  "mean_ms_per_burst_agent": 2484,
   "by_label": {
     "baboon": {
       "agent_ok": 19,
@@ -86,12 +86,12 @@
       "n": 20
     },
     "leopard": {
-      "agent_ok": 12,
+      "agent_ok": 13,
       "baseline_ok": 7,
       "n": 20
     },
     "lion": {
-      "agent_ok": 18,
+      "agent_ok": 19,
       "baseline_ok": 13,
       "n": 20
     },
@@ -150,7 +150,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1017
+      "ms": 887
     },
     {
       "seq": "SER_S1#E06#4#272",
@@ -195,7 +195,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1034
+      "ms": 800
     },
     {
       "seq": "SER_S9#H02#3#454",
@@ -240,7 +240,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1237
+      "ms": 1052
     },
     {
       "seq": "SER_S6#U09#2#162",
@@ -285,7 +285,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 2346
+      "ms": 1021
     },
     {
       "seq": "SER_S3#G02#11#626",
@@ -331,7 +331,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 8643
+      "ms": 5972
     },
     {
       "seq": "SER_S10#J02#2#26",
@@ -376,7 +376,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1286
+      "ms": 1244
     },
     {
       "seq": "SER_S8#E05#1#203",
@@ -421,7 +421,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1239
+      "ms": 1277
     },
     {
       "seq": "SER_S3#E05#11#19",
@@ -467,7 +467,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 5623
+      "ms": 5342
     },
     {
       "seq": "SER_S9#F01#2#9",
@@ -513,7 +513,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 5006
+      "ms": 4788
     },
     {
       "seq": "SER_S3#M03#11#483",
@@ -558,7 +558,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1002
+      "ms": 798
     },
     {
       "seq": "SER_S9#H03#3#111",
@@ -567,7 +567,7 @@
         "action": "log",
         "label": "baboon species",
         "scientific": "Papio",
-        "score": 0.786
+        "score": 0.9581
       },
       "baseline": {
         "action": "discard",
@@ -600,11 +600,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "classify": 1,
-        "classify_enhanced": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1970
+      "ms": 5423
     },
     {
       "seq": "SER_S6#K03#2#50",
@@ -650,7 +650,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5402
+      "ms": 5632
     },
     {
       "seq": "SER_S9#E06#2#49",
@@ -695,7 +695,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 947
+      "ms": 837
     },
     {
       "seq": "SER_S8#I01#2#70",
@@ -740,7 +740,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 922
+      "ms": 1104
     },
     {
       "seq": "SER_S9#E06#2#1133",
@@ -785,7 +785,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 984
+      "ms": 999
     },
     {
       "seq": "SER_S3#H02#11#22",
@@ -830,7 +830,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 863
+      "ms": 934
     },
     {
       "seq": "SER_S8#H03#1#12",
@@ -839,7 +839,7 @@
         "action": "log",
         "label": "baboon species",
         "scientific": "Papio",
-        "score": 0.9537
+        "score": 0.7403
       },
       "baseline": {
         "action": "log",
@@ -872,11 +872,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 1,
-        "classify_enhanced": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1242
+      "ms": 4736
     },
     {
       "seq": "SER_S5#K03#1#118",
@@ -922,7 +922,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4632
+      "ms": 5484
     },
     {
       "seq": "SER_S3#T10#12#341",
@@ -967,7 +967,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 849
+      "ms": 824
     },
     {
       "seq": "SER_S5#J01#2#171",
@@ -1009,12 +1009,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "detect_animals": 1,
-        "classify": 1,
+        "detect_animals": 2,
+        "classify": 2,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5419
+      "ms": 9461
     },
     {
       "seq": "SER_S5#J10#1#35",
@@ -1059,7 +1059,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1004
+      "ms": 940
     },
     {
       "seq": "SER_S6#I03#2#89",
@@ -1104,7 +1104,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 966
+      "ms": 1104
     },
     {
       "seq": "SER_S9#H02#2#36",
@@ -1113,7 +1113,7 @@
         "action": "log",
         "label": "african buffalo",
         "scientific": "Syncerus caffer",
-        "score": 0.7392
+        "score": 0.9868
       },
       "baseline": {
         "action": "discard",
@@ -1147,10 +1147,10 @@
         "read_frames": 1,
         "detect_motion": 2,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 2596
+      "ms": 5634
     },
     {
       "seq": "SER_S2#F10#1#343",
@@ -1195,7 +1195,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1166
+      "ms": 828
     },
     {
       "seq": "SER_S7#M04#2#104",
@@ -1241,7 +1241,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 5901
+      "ms": 5271
     },
     {
       "seq": "SER_S7#U10#1#135",
@@ -1288,7 +1288,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5477
+      "ms": 6460
     },
     {
       "seq": "SER_S2#C09#1#228",
@@ -1333,16 +1333,16 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1151
+      "ms": 1120
     },
     {
       "seq": "SER_S4#M07#1#198",
       "label": "buffalo",
       "agent": {
         "action": "log",
-        "label": "common wildebeest",
-        "scientific": "Connochaetes taurinus",
-        "score": 0.8796
+        "label": "african buffalo",
+        "scientific": "Syncerus caffer",
+        "score": 0.898
       },
       "baseline": {
         "action": "log",
@@ -1358,7 +1358,7 @@
         "false_alert": false,
         "person_kept": false,
         "logged": true,
-        "logged_right": false,
+        "logged_right": true,
         "review": false
       },
       "baseline_grade": {
@@ -1376,10 +1376,10 @@
         "read_frames": 1,
         "detect_motion": 1,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1715
+      "ms": 4744
     },
     {
       "seq": "SER_S5#D05#1#361",
@@ -1388,7 +1388,7 @@
         "action": "log",
         "label": "african buffalo",
         "scientific": "Syncerus caffer",
-        "score": 0.8383
+        "score": 0.9673
       },
       "baseline": {
         "action": "log",
@@ -1425,7 +1425,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4787
+      "ms": 4441
     },
     {
       "seq": "SER_S2#C11#2#339",
@@ -1470,7 +1470,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 769
+      "ms": 938
     },
     {
       "seq": "SER_S5#J10#1#34",
@@ -1515,7 +1515,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 795
+      "ms": 740
     },
     {
       "seq": "SER_S11#J03#2#584",
@@ -1560,7 +1560,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 881
+      "ms": 859
     },
     {
       "seq": "SER_S4#B07#1#145",
@@ -1602,11 +1602,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 2,
+        "classify": 3,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1687
+      "ms": 5530
     },
     {
       "seq": "SER_S11#I03#2#1983",
@@ -1651,7 +1652,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 850
+      "ms": 774
     },
     {
       "seq": "SER_S4#J10#1#370",
@@ -1696,7 +1697,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 911
+      "ms": 769
     },
     {
       "seq": "SER_S1#P07#1#177",
@@ -1741,7 +1742,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1135
+      "ms": 1178
     },
     {
       "seq": "SER_S6#J13#2#296",
@@ -1786,7 +1787,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 951
+      "ms": 764
     },
     {
       "seq": "SER_S5#I03#2#131",
@@ -1831,7 +1832,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 852
+      "ms": 803
     },
     {
       "seq": "SER_S5#J02#3#490",
@@ -1876,7 +1877,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1108
+      "ms": 848
     },
     {
       "seq": "SER_S4#I12#2#1766",
@@ -1923,7 +1924,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 6003
+      "ms": 5299
     },
     {
       "seq": "SER_S7#P13#2#20",
@@ -1968,7 +1969,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 777
+      "ms": 848
     },
     {
       "seq": "SER_S2#P10#1#213",
@@ -2015,7 +2016,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5971
+      "ms": 5077
     },
     {
       "seq": "SER_S5#E13#2#77",
@@ -2060,7 +2061,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 717
+      "ms": 862
     },
     {
       "seq": "SER_S10#L10#1#91",
@@ -2105,7 +2106,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 725
+      "ms": 822
     },
     {
       "seq": "SER_S10#L10#1#90",
@@ -2152,7 +2153,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5721
+      "ms": 5285
     },
     {
       "seq": "SER_S1#L10#1#5",
@@ -2198,7 +2199,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4216
+      "ms": 4456
     },
     {
       "seq": "SER_S11#J05#1#313",
@@ -2243,7 +2244,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 806
+      "ms": 812
     },
     {
       "seq": "SER_S7#C07#1#608",
@@ -2288,7 +2289,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 938
+      "ms": 813
     },
     {
       "seq": "SER_S7#L10#3#22",
@@ -2334,7 +2335,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4975
+      "ms": 4428
     },
     {
       "seq": "SER_S5#I03#2#74",
@@ -2379,7 +2380,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 807
+      "ms": 858
     },
     {
       "seq": "SER_S11#K10#1#1246",
@@ -2424,7 +2425,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 879
+      "ms": 715
     },
     {
       "seq": "SER_S1#L10#1#96",
@@ -2469,7 +2470,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 884
+      "ms": 791
     },
     {
       "seq": "SER_S1#P10#2#17",
@@ -2514,7 +2515,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 898
+      "ms": 668
     },
     {
       "seq": "SER_S5#O07#3#131",
@@ -2559,7 +2560,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 901
+      "ms": 766
     },
     {
       "seq": "SER_S10#L13#1#601",
@@ -2604,7 +2605,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 842
+      "ms": 754
     },
     {
       "seq": "SER_S5#H08#3#12",
@@ -2649,7 +2650,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 929
+      "ms": 796
     },
     {
       "seq": "SER_S8#U11#1#217",
@@ -2694,7 +2695,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 843
+      "ms": 841
     },
     {
       "seq": "SER_S11#P13#1#72",
@@ -2737,11 +2738,11 @@
         "read_frames": 1,
         "detect_motion": 1,
         "classify": 3,
-        "classify_enhanced": 1,
         "detect_animals": 1,
+        "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 6004
+      "ms": 5096
     },
     {
       "seq": "SER_S2#H08#2#43",
@@ -2786,7 +2787,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 881
+      "ms": 845
     },
     {
       "seq": "SER_S4#L10#2#136",
@@ -2831,7 +2832,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 782
+      "ms": 775
     },
     {
       "seq": "SER_S6#C01#2#78",
@@ -2876,7 +2877,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1204
+      "ms": 1087
     },
     {
       "seq": "SER_S11#K10#1#82",
@@ -2921,7 +2922,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1009
+      "ms": 804
     },
     {
       "seq": "SER_S4#Q08#1#60",
@@ -2966,7 +2967,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 815
+      "ms": 885
     },
     {
       "seq": "SER_S7#J02#1#38",
@@ -3011,7 +3012,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 833
+      "ms": 852
     },
     {
       "seq": "SER_S3#L11#12#127",
@@ -3020,7 +3021,7 @@
         "action": "alert_pending_approval",
         "label": "african elephant",
         "scientific": "Loxodonta africana",
-        "score": 0.9507
+        "score": 0.9994
       },
       "baseline": {
         "action": "alert_pending_approval",
@@ -3054,10 +3055,10 @@
         "read_frames": 1,
         "detect_motion": 1,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 2037
+      "ms": 5065
     },
     {
       "seq": "SER_S11#B03#1#15",
@@ -3103,7 +3104,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4713
+      "ms": 5287
     },
     {
       "seq": "SER_S5#C13#2#22",
@@ -3148,7 +3149,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1039
+      "ms": 850
     },
     {
       "seq": "SER_S10#J03#2#13",
@@ -3193,7 +3194,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 725
+      "ms": 924
     },
     {
       "seq": "SER_S11#K03#2#29",
@@ -3238,7 +3239,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1301
+      "ms": 961
     },
     {
       "seq": "SER_S2#R07#3#113",
@@ -3283,7 +3284,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 761
+      "ms": 805
     },
     {
       "seq": "SER_S7#P13#1#28",
@@ -3328,7 +3329,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 807
+      "ms": 788
     },
     {
       "seq": "SER_S7#G07#2#141",
@@ -3373,7 +3374,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 784
+      "ms": 733
     },
     {
       "seq": "SER_S9#E02#2#251",
@@ -3418,7 +3419,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 957
+      "ms": 822
     },
     {
       "seq": "SER_S9#D07#3#262",
@@ -3465,7 +3466,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 6020
+      "ms": 5763
     },
     {
       "seq": "SER_S2#F03#2#2",
@@ -3510,7 +3511,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1036
+      "ms": 761
     },
     {
       "seq": "SER_S5#P05#2#51",
@@ -3555,7 +3556,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 817
+      "ms": 949
     },
     {
       "seq": "SER_S8#P13#1#291",
@@ -3600,7 +3601,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 854
+      "ms": 1011
     },
     {
       "seq": "SER_S3#M06#12#555",
@@ -3690,7 +3691,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 887
+      "ms": 900
     },
     {
       "seq": "SER_S3#F06#12#107",
@@ -3735,7 +3736,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 953
+      "ms": 930
     },
     {
       "seq": "SER_S8#E08#2#552",
@@ -3781,7 +3782,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5118
+      "ms": 4477
     },
     {
       "seq": "SER_S7#D07#1#464",
@@ -3827,7 +3828,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4706
+      "ms": 4291
     },
     {
       "seq": "SER_S6#I12#2#465",
@@ -3873,7 +3874,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4581
+      "ms": 4298
     },
     {
       "seq": "SER_S1#D06#3#202",
@@ -3917,7 +3918,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4232
+      "ms": 4363
     },
     {
       "seq": "SER_S1#F02#4#101",
@@ -3961,7 +3962,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 3950
+      "ms": 4384
     },
     {
       "seq": "SER_S5#K10#3#382",
@@ -4005,7 +4006,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4174
+      "ms": 4249
     },
     {
       "seq": "SER_S9#H13#1#1174",
@@ -4014,7 +4015,7 @@
         "action": "discard",
         "label": "blank",
         "scientific": "",
-        "score": 0.9343
+        "score": 0.9985
       },
       "baseline": {
         "action": "discard",
@@ -4051,7 +4052,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4529
+      "ms": 4755
     },
     {
       "seq": "SER_S8#H03#3#1283",
@@ -4097,7 +4098,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 3984
+      "ms": 4110
     },
     {
       "seq": "SER_S7#R08#3#1605",
@@ -4141,7 +4142,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4324
+      "ms": 4113
     },
     {
       "seq": "SER_S9#F04#2#805",
@@ -4185,7 +4186,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4168
+      "ms": 3940
     },
     {
       "seq": "SER_S9#J12#3#421",
@@ -4229,7 +4230,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4083
+      "ms": 4332
     },
     {
       "seq": "SER_S9#D08#1#566",
@@ -4275,7 +4276,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4744
+      "ms": 5028
     },
     {
       "seq": "SER_S5#F03#1#757",
@@ -4321,7 +4322,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4337
+      "ms": 4594
     },
     {
       "seq": "SER_S9#N06#2#363",
@@ -4364,10 +4365,11 @@
         "read_frames": 1,
         "detect_motion": 1,
         "classify": 1,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1301
+      "ms": 4757
     },
     {
       "seq": "SER_S6#F05#1#1822",
@@ -4411,7 +4413,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4805
+      "ms": 4362
     },
     {
       "seq": "SER_S5#P10#3#1736",
@@ -4457,7 +4459,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4813
+      "ms": 4970
     },
     {
       "seq": "SER_S6#H08#1#16",
@@ -4501,7 +4503,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4992
+      "ms": 4307
     },
     {
       "seq": "SER_S7#H07#2#1015",
@@ -4545,7 +4547,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4713
+      "ms": 4138
     },
     {
       "seq": "SER_S7#L04#2#718",
@@ -4589,7 +4591,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4678
+      "ms": 4265
     },
     {
       "seq": "SER_S1#D06#3#413",
@@ -4633,7 +4635,7 @@
         "detect_motion": 2,
         "detect_animals": 1
       },
-      "ms": 4338
+      "ms": 3906
     },
     {
       "seq": "SER_S10#R08#1#684",
@@ -4678,7 +4680,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1356
+      "ms": 1079
     },
     {
       "seq": "SER_S8#C02#1#329",
@@ -4687,7 +4689,7 @@
         "action": "log",
         "label": "thomson's gazelle",
         "scientific": "Eudorcas thomsonii",
-        "score": 0.9368
+        "score": 0.9921
       },
       "baseline": {
         "action": "log",
@@ -4721,10 +4723,10 @@
         "read_frames": 1,
         "detect_motion": 1,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1817
+      "ms": 4559
     },
     {
       "seq": "SER_S8#E04#3#800",
@@ -4769,7 +4771,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 910
+      "ms": 909
     },
     {
       "seq": "SER_S8#P05#4#246",
@@ -4814,7 +4816,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 866
+      "ms": 770
     },
     {
       "seq": "SER_S7#E09#2#981",
@@ -4860,7 +4862,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5755
+      "ms": 5087
     },
     {
       "seq": "SER_S11#J09#2#662",
@@ -4905,7 +4907,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 872
+      "ms": 779
     },
     {
       "seq": "SER_S2#D02#4#1062",
@@ -4951,7 +4953,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 5012
+      "ms": 4487
     },
     {
       "seq": "SER_S11#H05#1#1160",
@@ -4996,7 +4998,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 864
+      "ms": 779
     },
     {
       "seq": "SER_S9#N07#2#267",
@@ -5041,7 +5043,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1248
+      "ms": 1175
     },
     {
       "seq": "SER_S8#P05#4#287",
@@ -5087,7 +5089,7 @@
         "classify": 2,
         "decide": 1
       },
-      "ms": 9224
+      "ms": 8269
     },
     {
       "seq": "SER_S2#O12#1#226",
@@ -5129,11 +5131,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "classify": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1572
+      "ms": 5426
     },
     {
       "seq": "SER_S1#J05#4#264",
@@ -5178,7 +5181,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 903
+      "ms": 897
     },
     {
       "seq": "SER_S2#H04#3#95",
@@ -5223,7 +5226,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 925
+      "ms": 786
     },
     {
       "seq": "SER_S8#N09#3#52",
@@ -5269,7 +5272,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5340
+      "ms": 5162
     },
     {
       "seq": "SER_S11#J03#1#1162",
@@ -5314,7 +5317,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 883
+      "ms": 865
     },
     {
       "seq": "SER_S11#E02#2#88",
@@ -5359,7 +5362,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 806
+      "ms": 773
     },
     {
       "seq": "SER_S7#L05#2#41",
@@ -5404,7 +5407,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1155
+      "ms": 1069
     },
     {
       "seq": "SER_S3#J05#11#232",
@@ -5449,7 +5452,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 829
+      "ms": 942
     },
     {
       "seq": "SER_S7#D08#2#469",
@@ -5494,7 +5497,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 839
+      "ms": 857
     },
     {
       "seq": "SER_S5#B07#2#185",
@@ -5539,7 +5542,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 786
+      "ms": 799
     },
     {
       "seq": "SER_S6#C02#2#143",
@@ -5548,7 +5551,7 @@
         "action": "review",
         "label": "giraffe",
         "scientific": "Giraffa camelopardalis",
-        "score": 0.5162
+        "score": 0.6923
       },
       "baseline": {
         "action": "review",
@@ -5581,11 +5584,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 2,
+        "classify": 3,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1716
+      "ms": 5746
     },
     {
       "seq": "SER_S4#C13#2#145",
@@ -5630,7 +5634,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 863
+      "ms": 879
     },
     {
       "seq": "SER_S2#P07#3#203",
@@ -5675,7 +5679,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 961
+      "ms": 744
     },
     {
       "seq": "SER_S7#H01#2#69",
@@ -5721,7 +5725,7 @@
         "classify": 2,
         "decide": 1
       },
-      "ms": 8735
+      "ms": 8503
     },
     {
       "seq": "SER_S2#P07#3#179",
@@ -5766,7 +5770,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 732
+      "ms": 792
     },
     {
       "seq": "SER_S2#E05#4#118",
@@ -5811,7 +5815,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 862
+      "ms": 785
     },
     {
       "seq": "SER_S7#C13#1#296",
@@ -5857,7 +5861,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5030
+      "ms": 5150
     },
     {
       "seq": "SER_S8#C13#3#652",
@@ -5902,7 +5906,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 829
+      "ms": 750
     },
     {
       "seq": "SER_S5#R06#2#16",
@@ -5947,7 +5951,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 955
+      "ms": 831
     },
     {
       "seq": "SER_S11#E02#2#745",
@@ -5956,7 +5960,7 @@
         "action": "discard",
         "label": "blank",
         "scientific": "",
-        "score": 0.734
+        "score": 0.9997
       },
       "baseline": {
         "action": "discard",
@@ -5993,7 +5997,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4767
+      "ms": 4465
     },
     {
       "seq": "SER_S6#S07#1#6",
@@ -6038,7 +6042,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 852
+      "ms": 794
     },
     {
       "seq": "SER_S8#H05#3#107",
@@ -6083,7 +6087,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 841
+      "ms": 838
     },
     {
       "seq": "SER_S9#I07#2#6",
@@ -6128,7 +6132,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 845
+      "ms": 767
     },
     {
       "seq": "SER_S5#E04#1#82",
@@ -6173,7 +6177,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 875
+      "ms": 944
     },
     {
       "seq": "SER_S10#D03#2#249",
@@ -6218,7 +6222,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 982
+      "ms": 769
     },
     {
       "seq": "SER_S3#H03#11#96",
@@ -6263,7 +6267,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1003
+      "ms": 833
     },
     {
       "seq": "SER_S7#C03#3#47",
@@ -6308,7 +6312,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 910
+      "ms": 799
     },
     {
       "seq": "SER_S7#U10#1#190",
@@ -6353,7 +6357,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 831
+      "ms": 954
     },
     {
       "seq": "SER_S6#U09#2#124",
@@ -6398,7 +6402,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 836
+      "ms": 858
     },
     {
       "seq": "SER_S5#C13#3#27",
@@ -6443,7 +6447,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 931
+      "ms": 855
     },
     {
       "seq": "SER_S11#M09#1#1469",
@@ -6452,7 +6456,7 @@
         "action": "log",
         "label": "spotted hyaena",
         "scientific": "Crocuta crocuta",
-        "score": 0.8751
+        "score": 0.9542
       },
       "baseline": {
         "action": "log",
@@ -6485,12 +6489,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 3,
-        "classify_enhanced": 1,
+        "classify": 2,
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5946
+      "ms": 4933
     },
     {
       "seq": "SER_S1#D05#5#79",
@@ -6536,7 +6539,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1374
+      "ms": 1350
     },
     {
       "seq": "SER_S9#L07#1#202",
@@ -6581,7 +6584,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 841
+      "ms": 844
     },
     {
       "seq": "SER_S7#H07#1#1144",
@@ -6627,7 +6630,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5120
+      "ms": 5037
     },
     {
       "seq": "SER_S10#M09#1#525",
@@ -6672,7 +6675,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1040
+      "ms": 1048
     },
     {
       "seq": "SER_S1#P07#1#215",
@@ -6718,7 +6721,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1272
+      "ms": 1136
     },
     {
       "seq": "SER_S5#K07#2#226",
@@ -6763,7 +6766,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1001
+      "ms": 1092
     },
     {
       "seq": "SER_S11#M07#1#192",
@@ -6810,7 +6813,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5772
+      "ms": 4687
     },
     {
       "seq": "SER_S2#I13#2#24",
@@ -6819,7 +6822,7 @@
         "action": "log",
         "label": "spotted hyaena",
         "scientific": "Crocuta crocuta",
-        "score": 0.7646
+        "score": 0.9902
       },
       "baseline": {
         "action": "discard",
@@ -6852,11 +6855,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "classify": 1,
-        "classify_enhanced": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1714
+      "ms": 4719
     },
     {
       "seq": "SER_S11#M09#1#1105",
@@ -6902,7 +6905,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5110
+      "ms": 4406
     },
     {
       "seq": "SER_S1#E05#3#8",
@@ -6948,7 +6951,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5031
+      "ms": 4390
     },
     {
       "seq": "SER_S1#I13#1#543",
@@ -6993,7 +6996,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1046
+      "ms": 803
     },
     {
       "seq": "SER_S1#H06#4#173",
@@ -7038,7 +7041,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 899
+      "ms": 740
     },
     {
       "seq": "SER_S8#M06#3#270",
@@ -7083,7 +7086,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 874
+      "ms": 791
     },
     {
       "seq": "SER_S2#I09#2#856",
@@ -7128,7 +7131,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 765
+      "ms": 757
     },
     {
       "seq": "SER_S1#J06#3#487",
@@ -7173,7 +7176,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 785
+      "ms": 852
     },
     {
       "seq": "SER_S5#S13#1#179",
@@ -7219,7 +7222,7 @@
         "classify": 2,
         "decide": 1
       },
-      "ms": 9668
+      "ms": 9277
     },
     {
       "seq": "SER_S2#B06#1#22",
@@ -7265,7 +7268,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1293
+      "ms": 1446
     },
     {
       "seq": "SER_S5#S13#1#110",
@@ -7310,16 +7313,16 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 891
+      "ms": 999
     },
     {
       "seq": "SER_S7#O08#3#318",
       "label": "hyenaspotted",
       "agent": {
         "action": "log",
-        "label": "domestic cattle",
-        "scientific": "Bos taurus",
-        "score": 0.8105
+        "label": "spotted hyaena",
+        "scientific": "Crocuta crocuta",
+        "score": 0.9919
       },
       "baseline": {
         "action": "review",
@@ -7335,7 +7338,7 @@
         "false_alert": false,
         "person_kept": false,
         "logged": true,
-        "logged_right": false,
+        "logged_right": true,
         "review": false
       },
       "baseline_grade": {
@@ -7352,11 +7355,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 1,
-        "classify_enhanced": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1215
+      "ms": 5407
     },
     {
       "seq": "SER_S7#H03#3#74",
@@ -7401,7 +7404,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 759
+      "ms": 834
     },
     {
       "seq": "SER_S5#B06#1#16",
@@ -7448,7 +7451,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5085
+      "ms": 4940
     },
     {
       "seq": "SER_S10#J02#2#34",
@@ -7494,7 +7497,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5302
+      "ms": 4963
     },
     {
       "seq": "SER_S7#G02#3#553",
@@ -7539,7 +7542,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 891
+      "ms": 938
     },
     {
       "seq": "SER_S2#E02#2#350",
@@ -7584,7 +7587,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1153
+      "ms": 1154
     },
     {
       "seq": "SER_S9#E01#1#326",
@@ -7629,7 +7632,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 975
+      "ms": 907
     },
     {
       "seq": "SER_S2#E04#2#534",
@@ -7674,7 +7677,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 798
+      "ms": 1018
     },
     {
       "seq": "SER_S5#J02#3#16",
@@ -7719,16 +7722,16 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 914
+      "ms": 909
     },
     {
       "seq": "SER_S1#I02#1#1093",
       "label": "impala",
       "agent": {
-        "action": "review",
+        "action": "log",
         "label": "impala",
         "scientific": "Aepyceros melampus",
-        "score": 0.2575
+        "score": 0.9937
       },
       "baseline": {
         "action": "review",
@@ -7743,9 +7746,9 @@
         "watch_seen": false,
         "false_alert": false,
         "person_kept": false,
-        "logged": false,
-        "logged_right": false,
-        "review": true
+        "logged": true,
+        "logged_right": true,
+        "review": false
       },
       "baseline_grade": {
         "correct_action": true,
@@ -7761,11 +7764,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 1,
-        "classify_enhanced": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1180
+      "ms": 5227
     },
     {
       "seq": "SER_S1#E03#6#156",
@@ -7812,7 +7815,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1494
+      "ms": 1545
     },
     {
       "seq": "SER_S5#B06#3#228",
@@ -7857,7 +7860,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1186
+      "ms": 1308
     },
     {
       "seq": "SER_S5#E02#1#440",
@@ -7902,7 +7905,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1061
+      "ms": 941
     },
     {
       "seq": "SER_S5#F03#1#2",
@@ -7947,7 +7950,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 966
+      "ms": 889
     },
     {
       "seq": "SER_S6#E03#2#732",
@@ -7992,7 +7995,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 868
+      "ms": 830
     },
     {
       "seq": "SER_S7#E01#2#591",
@@ -8037,7 +8040,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 833
+      "ms": 834
     },
     {
       "seq": "SER_S6#E04#1#251",
@@ -8082,7 +8085,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 895
+      "ms": 799
     },
     {
       "seq": "SER_S8#E01#1#55",
@@ -8127,7 +8130,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1391
+      "ms": 1406
     },
     {
       "seq": "SER_S6#M02#2#94",
@@ -8172,7 +8175,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 713
+      "ms": 869
     },
     {
       "seq": "SER_S5#F03#3#213",
@@ -8218,7 +8221,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 5192
+      "ms": 4486
     },
     {
       "seq": "SER_S6#G03#1#146",
@@ -8265,7 +8268,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5914
+      "ms": 5444
     },
     {
       "seq": "SER_S1#T09#1#43",
@@ -8307,13 +8310,13 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "detect_animals": 1,
+        "detect_animals": 2,
         "enhance": 1,
-        "classify": 1,
+        "classify": 2,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 6204
+      "ms": 9463
     },
     {
       "seq": "SER_S2#I07#4#27",
@@ -8322,7 +8325,7 @@
         "action": "review",
         "label": "cheetah",
         "scientific": "Acinonyx jubatus",
-        "score": 0.4921
+        "score": 0.6547
       },
       "baseline": {
         "action": "discard",
@@ -8360,7 +8363,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 6003
+      "ms": 5491
     },
     {
       "seq": "SER_S5#H06#1#344",
@@ -8405,7 +8408,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1336
+      "ms": 1176
     },
     {
       "seq": "SER_S5#J02#1#594",
@@ -8450,16 +8453,16 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 866
+      "ms": 797
     },
     {
       "seq": "SER_S5#O08#3#18",
       "label": "leopard",
       "agent": {
-        "action": "log",
+        "action": "review",
         "label": "cheetah",
         "scientific": "Acinonyx jubatus",
-        "score": 0.8661
+        "score": 0.808
       },
       "baseline": {
         "action": "alert_pending_approval",
@@ -8471,12 +8474,12 @@
         "correct_action": false,
         "missed_animal": false,
         "missed_alert": true,
-        "watch_seen": false,
+        "watch_seen": true,
         "false_alert": false,
         "person_kept": false,
-        "logged": true,
+        "logged": false,
         "logged_right": false,
-        "review": false
+        "review": true
       },
       "baseline_grade": {
         "correct_action": true,
@@ -8492,11 +8495,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1335
+      "ms": 5778
     },
     {
       "seq": "SER_S7#I03#2#26",
@@ -8541,7 +8545,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 886
+      "ms": 1072
     },
     {
       "seq": "SER_S6#N09#1#35",
@@ -8586,16 +8590,16 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 938
+      "ms": 952
     },
     {
       "seq": "SER_S6#D03#1#119",
       "label": "leopard",
       "agent": {
-        "action": "review",
-        "label": "jaguar",
-        "scientific": "Panthera onca",
-        "score": 0.6673
+        "action": "alert_pending_approval",
+        "label": "leopard",
+        "scientific": "Panthera pardus",
+        "score": 0.9834
       },
       "baseline": {
         "action": "discard",
@@ -8604,15 +8608,15 @@
         "score": 0.0
       },
       "agent_grade": {
-        "correct_action": false,
+        "correct_action": true,
         "missed_animal": false,
-        "missed_alert": true,
+        "missed_alert": false,
         "watch_seen": true,
         "false_alert": false,
         "person_kept": false,
         "logged": false,
         "logged_right": false,
-        "review": true
+        "review": false
       },
       "baseline_grade": {
         "correct_action": false,
@@ -8629,10 +8633,10 @@
         "read_frames": 1,
         "detect_motion": 2,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 2177
+      "ms": 5200
     },
     {
       "seq": "SER_S8#J09#2#439",
@@ -8677,7 +8681,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 767
+      "ms": 749
     },
     {
       "seq": "SER_S7#J02#3#135",
@@ -8723,7 +8727,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 5231
+      "ms": 4621
     },
     {
       "seq": "SER_S4#U11#2#1383",
@@ -8769,7 +8773,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4931
+      "ms": 5149
     },
     {
       "seq": "SER_S2#C11#1#168",
@@ -8811,11 +8815,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 2,
+        "classify": 3,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1753
+      "ms": 5710
     },
     {
       "seq": "SER_S2#L07#2#514",
@@ -8824,7 +8829,7 @@
         "action": "alert_pending_approval",
         "label": "leopard",
         "scientific": "Panthera pardus",
-        "score": 0.6186
+        "score": 0.6393
       },
       "baseline": {
         "action": "review",
@@ -8859,11 +8864,12 @@
         "detect_motion": 1,
         "enhance": 2,
         "compare": 1,
-        "classify": 2,
+        "classify": 3,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 2909
+      "ms": 6734
     },
     {
       "seq": "SER_S8#E05#1#258",
@@ -8872,7 +8878,7 @@
         "action": "alert_pending_approval",
         "label": "leopard",
         "scientific": "Panthera pardus",
-        "score": 0.7174
+        "score": 0.8896
       },
       "baseline": {
         "action": "discard",
@@ -8905,20 +8911,20 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "classify": 1,
-        "classify_enhanced": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1730
+      "ms": 5153
     },
     {
       "seq": "SER_S11#O05#1#117",
       "label": "leopard",
       "agent": {
-        "action": "alert_pending_approval",
-        "label": "leopard",
-        "scientific": "Panthera pardus",
-        "score": 0.7582
+        "action": "log",
+        "label": "cheetah",
+        "scientific": "Acinonyx jubatus",
+        "score": 0.7581
       },
       "baseline": {
         "action": "alert_pending_approval",
@@ -8927,13 +8933,13 @@
         "score": 0.6312
       },
       "agent_grade": {
-        "correct_action": true,
+        "correct_action": false,
         "missed_animal": false,
-        "missed_alert": false,
-        "watch_seen": true,
+        "missed_alert": true,
+        "watch_seen": false,
         "false_alert": false,
         "person_kept": false,
-        "logged": false,
+        "logged": true,
         "logged_right": false,
         "review": false
       },
@@ -8952,10 +8958,10 @@
         "read_frames": 1,
         "detect_motion": 1,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1779
+      "ms": 5129
     },
     {
       "seq": "SER_S3#L04#11#60",
@@ -8964,7 +8970,7 @@
         "action": "alert_pending_approval",
         "label": "leopard",
         "scientific": "Panthera pardus",
-        "score": 0.9739
+        "score": 0.9572
       },
       "baseline": {
         "action": "discard",
@@ -8997,12 +9003,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "classify": 3,
-        "classify_enhanced": 1,
+        "classify": 2,
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 7039
+      "ms": 4873
     },
     {
       "seq": "SER_S11#P05#1#569",
@@ -9047,7 +9052,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 940
+      "ms": 819
     },
     {
       "seq": "SER_S5#M06#1#82",
@@ -9092,16 +9097,16 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 894
+      "ms": 806
     },
     {
       "seq": "SER_S4#T08#2#69",
       "label": "leopard",
       "agent": {
-        "action": "review",
-        "label": "cheetah",
-        "scientific": "Acinonyx jubatus",
-        "score": 0.7261
+        "action": "alert_pending_approval",
+        "label": "leopard",
+        "scientific": "Panthera pardus",
+        "score": 0.9531
       },
       "baseline": {
         "action": "discard",
@@ -9110,15 +9115,15 @@
         "score": 0.0
       },
       "agent_grade": {
-        "correct_action": false,
+        "correct_action": true,
         "missed_animal": false,
-        "missed_alert": true,
+        "missed_alert": false,
         "watch_seen": true,
         "false_alert": false,
         "person_kept": false,
         "logged": false,
         "logged_right": false,
-        "review": true
+        "review": false
       },
       "baseline_grade": {
         "correct_action": false,
@@ -9135,10 +9140,10 @@
         "read_frames": 1,
         "detect_motion": 2,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 2367
+      "ms": 4857
     },
     {
       "seq": "SER_S4#F12#2#114",
@@ -9183,7 +9188,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1335
+      "ms": 1082
     },
     {
       "seq": "SER_S5#P10#2#508",
@@ -9228,7 +9233,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 868
+      "ms": 753
     },
     {
       "seq": "SER_S11#L10#2#1094",
@@ -9274,7 +9279,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 5344
+      "ms": 4214
     },
     {
       "seq": "SER_S5#P10#1#289",
@@ -9319,7 +9324,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 852
+      "ms": 753
     },
     {
       "seq": "SER_S1#F11#1#54",
@@ -9364,7 +9369,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 776
+      "ms": 779
     },
     {
       "seq": "SER_S8#J09#3#406",
@@ -9409,7 +9414,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 817
+      "ms": 732
     },
     {
       "seq": "SER_S2#P10#3#28",
@@ -9455,7 +9460,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 4765
+      "ms": 4618
     },
     {
       "seq": "SER_S10#E06#1#362",
@@ -9464,7 +9469,7 @@
         "action": "alert_pending_approval",
         "label": "lion",
         "scientific": "Panthera leo",
-        "score": 0.5037
+        "score": 0.6185
       },
       "baseline": {
         "action": "discard",
@@ -9497,11 +9502,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "classify": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1550
+      "ms": 5297
     },
     {
       "seq": "SER_S3#M07#11#45",
@@ -9546,7 +9552,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 789
+      "ms": 831
     },
     {
       "seq": "SER_S5#L10#2#690",
@@ -9555,7 +9561,7 @@
         "action": "alert_pending_approval",
         "label": "lion",
         "scientific": "Panthera leo",
-        "score": 0.9813
+        "score": 0.9825
       },
       "baseline": {
         "action": "discard",
@@ -9592,7 +9598,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 4804
+      "ms": 4792
     },
     {
       "seq": "SER_S4#L11#2#93",
@@ -9639,7 +9645,7 @@
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5137
+      "ms": 5574
     },
     {
       "seq": "SER_S11#M07#1#21",
@@ -9684,7 +9690,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 853
+      "ms": 750
     },
     {
       "seq": "SER_S4#I13#1#107",
@@ -9729,7 +9735,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 831
+      "ms": 796
     },
     {
       "seq": "SER_S10#P10#2#237",
@@ -9774,7 +9780,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 843
+      "ms": 779
     },
     {
       "seq": "SER_S8#J09#2#562",
@@ -9819,7 +9825,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 794
+      "ms": 774
     },
     {
       "seq": "SER_S9#M09#1#597",
@@ -9865,7 +9871,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 4815
+      "ms": 4292
     },
     {
       "seq": "SER_S2#P11#3#76",
@@ -9874,7 +9880,7 @@
         "action": "alert_pending_approval",
         "label": "lion",
         "scientific": "Panthera leo",
-        "score": 0.8738
+        "score": 0.8137
       },
       "baseline": {
         "action": "alert_pending_approval",
@@ -9907,21 +9913,20 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 3,
-        "classify_enhanced": 1,
+        "classify": 2,
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5874
+      "ms": 4704
     },
     {
       "seq": "SER_S1#H02#2#351",
       "label": "lion",
       "agent": {
-        "action": "review",
-        "label": "domestic cattle",
-        "scientific": "Bos taurus",
-        "score": 0.4095
+        "action": "alert_pending_approval",
+        "label": "lion",
+        "scientific": "Panthera leo",
+        "score": 0.526
       },
       "baseline": {
         "action": "alert_pending_approval",
@@ -9930,15 +9935,15 @@
         "score": 0.345
       },
       "agent_grade": {
-        "correct_action": false,
+        "correct_action": true,
         "missed_animal": false,
-        "missed_alert": true,
+        "missed_alert": false,
         "watch_seen": true,
         "false_alert": false,
         "person_kept": false,
         "logged": false,
         "logged_right": false,
-        "review": true
+        "review": false
       },
       "baseline_grade": {
         "correct_action": true,
@@ -9954,11 +9959,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 2,
+        "classify": 3,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1658
+      "ms": 5950
     },
     {
       "seq": "SER_S3#I07#12#29",
@@ -10003,16 +10009,16 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 872
+      "ms": 800
     },
     {
       "seq": "SER_S3#P10#11#90",
       "label": "lion",
       "agent": {
-        "action": "review",
+        "action": "log",
         "label": "hartebeest",
         "scientific": "Alcelaphus buselaphus",
-        "score": 0.5414
+        "score": 0.9199
       },
       "baseline": {
         "action": "review",
@@ -10024,12 +10030,12 @@
         "correct_action": false,
         "missed_animal": false,
         "missed_alert": true,
-        "watch_seen": true,
+        "watch_seen": false,
         "false_alert": false,
         "person_kept": false,
-        "logged": false,
+        "logged": true,
         "logged_right": false,
-        "review": true
+        "review": false
       },
       "baseline_grade": {
         "correct_action": false,
@@ -10045,11 +10051,11 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 1,
-        "classify_enhanced": 1,
+        "classify": 2,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1294
+      "ms": 4767
     },
     {
       "seq": "SER_S7#N09#3#406",
@@ -10058,7 +10064,7 @@
         "action": "alert_pending_approval",
         "label": "lion",
         "scientific": "Panthera leo",
-        "score": 0.665
+        "score": 0.9888
       },
       "baseline": {
         "action": "alert_pending_approval",
@@ -10092,10 +10098,10 @@
         "read_frames": 1,
         "detect_motion": 1,
         "classify": 2,
-        "classify_enhanced": 1,
+        "detect_animals": 1,
         "decide": 1
       },
-      "ms": 1802
+      "ms": 4779
     },
     {
       "seq": "SER_S10#Q12#2#405",
@@ -10140,7 +10146,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 839
+      "ms": 760
     },
     {
       "seq": "SER_S2#D04#3#226",
@@ -10185,7 +10191,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1099
+      "ms": 1108
     },
     {
       "seq": "SER_S6#S12#2#420",
@@ -10230,7 +10236,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 938
+      "ms": 821
     },
     {
       "seq": "SER_S7#J02#1#189",
@@ -10275,7 +10281,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 805
+      "ms": 828
     },
     {
       "seq": "SER_S4#S11#2#931",
@@ -10320,7 +10326,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 853
+      "ms": 885
     },
     {
       "seq": "SER_S4#I03#1#240",
@@ -10365,7 +10371,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 819
+      "ms": 811
     },
     {
       "seq": "SER_S7#J05#1#234",
@@ -10410,7 +10416,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 789
+      "ms": 842
     },
     {
       "seq": "SER_S7#H07#3#348",
@@ -10456,7 +10462,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5112
+      "ms": 4705
     },
     {
       "seq": "SER_S8#H05#1#141",
@@ -10501,7 +10507,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 849
+      "ms": 821
     },
     {
       "seq": "SER_S8#N10#2#746",
@@ -10546,7 +10552,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 795
+      "ms": 809
     },
     {
       "seq": "SER_S11#J03#1#569",
@@ -10591,7 +10597,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 804
+      "ms": 777
     },
     {
       "seq": "SER_S6#T12#1#370",
@@ -10637,7 +10643,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5364
+      "ms": 4600
     },
     {
       "seq": "SER_S6#V10#1#590",
@@ -10682,7 +10688,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 830
+      "ms": 826
     },
     {
       "seq": "SER_S2#C04#3#355",
@@ -10727,7 +10733,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 745
+      "ms": 729
     },
     {
       "seq": "SER_S5#U09#1#192",
@@ -10772,7 +10778,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1124
+      "ms": 1066
     },
     {
       "seq": "SER_S10#M09#3#132",
@@ -10814,11 +10820,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 1,
-        "classify": 2,
+        "classify": 3,
+        "detect_animals": 1,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 1724
+      "ms": 5909
     },
     {
       "seq": "SER_S7#H07#1#249",
@@ -10863,7 +10870,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 963
+      "ms": 842
     },
     {
       "seq": "SER_S10#P10#2#739",
@@ -10908,7 +10915,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 772
+      "ms": 727
     },
     {
       "seq": "SER_S6#S11#2#971",
@@ -10953,7 +10960,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1100
+      "ms": 1114
     },
     {
       "seq": "SER_S11#K06#2#201",
@@ -10998,7 +11005,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 880
+      "ms": 770
     },
     {
       "seq": "SER_S2#C03#3#906",
@@ -11043,7 +11050,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 842
+      "ms": 881
     },
     {
       "seq": "SER_S4#G02#1#525",
@@ -11088,7 +11095,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 895
+      "ms": 824
     },
     {
       "seq": "SER_S9#J09#2#8",
@@ -11133,7 +11140,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 905
+      "ms": 782
     },
     {
       "seq": "SER_S11#P13#2#362",
@@ -11179,7 +11186,7 @@
         "detect_animals": 1,
         "decide": 1
       },
-      "ms": 5065
+      "ms": 4839
     },
     {
       "seq": "SER_S9#D02#3#219",
@@ -11224,7 +11231,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 828
+      "ms": 840
     },
     {
       "seq": "SER_S2#F07#2#63",
@@ -11270,7 +11277,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 4919
+      "ms": 4764
     },
     {
       "seq": "SER_S10#C01#1#1100",
@@ -11315,7 +11322,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 893
+      "ms": 882
     },
     {
       "seq": "SER_S5#C01#3#1611",
@@ -11357,12 +11364,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "detect_animals": 1,
-        "classify": 1,
+        "detect_animals": 2,
+        "classify": 2,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5389
+      "ms": 9759
     },
     {
       "seq": "SER_S7#I01#2#220",
@@ -11407,7 +11414,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1201
+      "ms": 1158
     },
     {
       "seq": "SER_S2#V10#3#267",
@@ -11453,7 +11460,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1613
+      "ms": 1456
     },
     {
       "seq": "SER_S11#E02#1#279",
@@ -11498,7 +11505,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 879
+      "ms": 884
     },
     {
       "seq": "SER_S1#H01#1#937",
@@ -11543,7 +11550,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 837
+      "ms": 816
     },
     {
       "seq": "SER_S4#C12#1#218",
@@ -11588,7 +11595,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 877
+      "ms": 745
     },
     {
       "seq": "SER_S8#S07#2#57",
@@ -11633,7 +11640,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1109
+      "ms": 1145
     },
     {
       "seq": "SER_S2#E06#4#38",
@@ -11678,7 +11685,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1076
+      "ms": 1117
     },
     {
       "seq": "SER_S5#P13#3#301",
@@ -11723,7 +11730,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 782
+      "ms": 735
     },
     {
       "seq": "SER_S3#E10#11#87",
@@ -11768,7 +11775,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 837
+      "ms": 894
     },
     {
       "seq": "SER_S9#H05#2#101",
@@ -11813,7 +11820,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 789
+      "ms": 759
     },
     {
       "seq": "SER_S8#V10#2#81",
@@ -11858,7 +11865,7 @@
         "classify": 1,
         "decide": 1
       },
-      "ms": 1053
+      "ms": 1062
     },
     {
       "seq": "SER_S9#B09#2#506",
@@ -11900,12 +11907,12 @@
       "tools": {
         "read_frames": 1,
         "detect_motion": 2,
-        "detect_animals": 1,
-        "classify": 1,
+        "detect_animals": 2,
+        "classify": 2,
         "classify_enhanced": 1,
         "decide": 1
       },
-      "ms": 5053
+      "ms": 9187
     }
   ]
 }

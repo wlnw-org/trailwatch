@@ -45,7 +45,7 @@
  },
  {
   "id": "impala-dark",
-  "title": "Impala in a dark frame (a known failure)",
+  "title": "Impala in a dark frame",
   "label": "impala",
   "source": "Snapshot Serengeti, SER_S1#E03#6#156",
   "files": [

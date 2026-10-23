@@ -47,12 +47,18 @@
     },
     "action": "alert_pending_approval",
     "reason": "elephant near the station",
-    "attempts": 3
+    "attempts": 3,
+    "box": [
+     1029,
+     294,
+     94,
+     49
+    ]
    }
   ],
   "trace": [
    {
-    "t": 1792765306.645,
+    "t": 1792767171.437,
     "tool": "read_frames",
     "inputs": {
      "source": "samples/elephant-detector/frame1.jpg,samples/elephant-detector/frame2.jpg,samples/elephant-detector/frame3.jpg",
@@ -65,7 +71,7 @@
     "decision": "detect motion"
    },
    {
-    "t": 1792765306.999,
+    "t": 1792767171.743,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.004,
@@ -78,7 +84,7 @@
     "decision": "no motion: retry with a more sensitive threshold"
    },
    {
-    "t": 1792765307.295,
+    "t": 1792767172.041,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.0015,
@@ -91,7 +97,7 @@
     "decision": "triage each event"
    },
    {
-    "t": 1792765307.751,
+    "t": 1792767172.518,
     "tool": "classify",
     "inputs": {
      "frame": 2,
@@ -123,7 +129,80 @@
     "decision": "unsure: try another frame"
    },
    {
-    "t": 1792765308.293,
+    "t": 1792767176.382,
+    "tool": "detect_animals",
+    "inputs": {
+     "frame": 2,
+     "model": "megadetector-v5a",
+     "why": "classifier unsure"
+    },
+    "observation": {
+     "detections": [
+      {
+       "label": "animal",
+       "score": 0.5216,
+       "box": [
+        1066,
+        192,
+        212,
+        106
+       ]
+      },
+      {
+       "label": "animal",
+       "score": 0.4869,
+       "box": [
+        428,
+        226,
+        148,
+        90
+       ]
+      },
+      {
+       "label": "animal",
+       "score": 0.2011,
+       "box": [
+        727,
+        201,
+        187,
+        99
+       ]
+      }
+     ]
+    },
+    "decision": "re-crop around the detector's box"
+   },
+   {
+    "t": 1792767176.819,
+    "tool": "classify",
+    "inputs": {
+     "frame": 2,
+     "box": "detector"
+    },
+    "observation": {
+     "label": "african elephant",
+     "scientific": "Loxodonta africana",
+     "score": 0.5939,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Connochaetes taurinus",
+       0.2093
+      ],
+      [
+       "Syncerus caffer",
+       0.1653
+      ],
+      [
+       "Equus quagga",
+       0.0175
+      ]
+     ]
+    },
+    "decision": "unsure"
+   },
+   {
+    "t": 1792767177.341,
     "tool": "classify_enhanced",
     "inputs": {
      "frame": 2
@@ -151,7 +230,7 @@
     "decision": "still unsure: try another frame"
    },
    {
-    "t": 1792765308.722,
+    "t": 1792767177.788,
     "tool": "classify",
     "inputs": {
      "frame": 1,
@@ -187,7 +266,7 @@
     "decision": "unsure: try another frame"
    },
    {
-    "t": 1792765308.722,
+    "t": 1792767177.788,
     "tool": "decide",
     "inputs": {
      "event": {
@@ -259,12 +338,18 @@
     },
     "action": "log",
     "reason": "confident identification",
-    "attempts": 1
+    "attempts": 1,
+    "box": [
+     0,
+     511,
+     78,
+     229
+    ]
    }
   ],
   "trace": [
    {
-    "t": 1792765308.745,
+    "t": 1792767177.813,
     "tool": "read_frames",
     "inputs": {
      "source": "samples/gazelle-detector/frame1.jpg,samples/gazelle-detector/frame2.jpg,samples/gazelle-detector/frame3.jpg",
@@ -277,7 +362,7 @@
     "decision": "detect motion"
    },
    {
-    "t": 1792765309.096,
+    "t": 1792767178.101,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.004,
@@ -290,7 +375,7 @@
     "decision": "triage each event"
    },
    {
-    "t": 1792765309.523,
+    "t": 1792767178.515,
     "tool": "classify",
     "inputs": {
      "frame": 0,
@@ -323,10 +408,10 @@
       ]
      ]
     },
-    "decision": "accept"
+    "decision": "classifier sees nothing, but something moved: check"
    },
    {
-    "t": 1792765313.151,
+    "t": 1792767182.224,
     "tool": "detect_animals",
     "inputs": {
      "frame": 0,
@@ -360,7 +445,7 @@
     "decision": "re-crop around the detector's box"
    },
    {
-    "t": 1792765313.558,
+    "t": 1792767182.756,
     "tool": "classify",
     "inputs": {
      "frame": 0,
@@ -389,7 +474,7 @@
     "decision": "accept"
    },
    {
-    "t": 1792765313.558,
+    "t": 1792767182.756,
     "tool": "decide",
     "inputs": {
      "event": {
@@ -465,12 +550,18 @@
     },
     "action": "log",
     "reason": "confident identification",
-    "attempts": 1
+    "attempts": 1,
+    "box": [
+     260,
+     604,
+     244,
+     178
+    ]
    }
   ],
   "trace": [
    {
-    "t": 1792765313.58,
+    "t": 1792767182.774,
     "tool": "read_frames",
     "inputs": {
      "source": "samples/hyena-night/frame1.jpg,samples/hyena-night/frame2.jpg,samples/hyena-night/frame3.jpg",
@@ -483,7 +574,7 @@
     "decision": "detect motion"
    },
    {
-    "t": 1792765313.908,
+    "t": 1792767183.085,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.004,
@@ -496,7 +587,7 @@
     "decision": "triage each event"
    },
    {
-    "t": 1792765314.472,
+    "t": 1792767183.632,
     "tool": "enhance",
     "inputs": {
      "frame": 1,
@@ -518,7 +609,7 @@
     "decision": "use enhanced frame"
    },
    {
-    "t": 1792765314.908,
+    "t": 1792767184.019,
     "tool": "classify",
     "inputs": {
      "frame": 1,
@@ -554,7 +645,7 @@
     "decision": "accept"
    },
    {
-    "t": 1792765314.908,
+    "t": 1792767184.019,
     "tool": "decide",
     "inputs": {
      "event": {
@@ -607,31 +698,37 @@
     "prediction": {
      "label": "cheetah",
      "scientific": "Acinonyx jubatus",
-     "score": 0.6782,
+     "score": 0.4978,
      "model": "speciesnet:v4.0.3a",
      "alternatives": [
       [
        "Leptailurus serval",
-       0.1554
+       0.4842
       ],
       [
        "Panthera pardus",
-       0.1296
+       0.0074
       ],
       [
        "Panthera onca",
-       0.0264
+       0.0012
       ]
      ]
     },
     "action": "review",
-    "reason": "looks like cheetah, but could be Panthera pardus (0.13): leopard recorded",
-    "attempts": 2
+    "reason": "classifier unsure; a person should confirm",
+    "attempts": 2,
+    "box": [
+     26,
+     621,
+     1240,
+     273
+    ]
    }
   ],
   "trace": [
    {
-    "t": 1792765314.926,
+    "t": 1792767184.037,
     "tool": "read_frames",
     "inputs": {
      "source": "samples/leopard-lookalike/frame1.jpg,samples/leopard-lookalike/frame2.jpg,samples/leopard-lookalike/frame3.jpg",
@@ -644,7 +741,7 @@
     "decision": "detect motion"
    },
    {
-    "t": 1792765315.265,
+    "t": 1792767184.31,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.004,
@@ -657,7 +754,7 @@
     "decision": "no motion: retry with a more sensitive threshold"
    },
    {
-    "t": 1792765315.526,
+    "t": 1792767184.565,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.0015,
@@ -670,7 +767,7 @@
     "decision": "triage each event"
    },
    {
-    "t": 1792765316.021,
+    "t": 1792767184.966,
     "tool": "classify",
     "inputs": {
      "frame": 2,
@@ -699,10 +796,10 @@
       ]
      ]
     },
-    "decision": "unsure: try another frame"
+    "decision": "classifier sees nothing, but something moved: check"
    },
    {
-    "t": 1792765320.052,
+    "t": 1792767188.885,
     "tool": "detect_animals",
     "inputs": {
      "frame": 2,
@@ -746,7 +843,7 @@
     "decision": "re-crop around the detector's box"
    },
    {
-    "t": 1792765320.501,
+    "t": 1792767189.346,
     "tool": "classify",
     "inputs": {
      "frame": 2,
@@ -755,27 +852,27 @@
     "observation": {
      "label": "cheetah",
      "scientific": "Acinonyx jubatus",
-     "score": 0.4618,
+     "score": 0.4592,
      "model": "speciesnet:v4.0.3a",
      "alternatives": [
       [
-       "Panthera pardus",
-       0.2721
-      ],
-      [
        "Leptailurus serval",
-       0.1994
+       0.3989
       ],
       [
-       "Panthera onca",
-       0.0421
+       "Panthera pardus",
+       0.0635
+      ],
+      [
+       "Leopardus pardalis",
+       0.0116
       ]
      ]
     },
     "decision": "unsure"
    },
    {
-    "t": 1792765320.973,
+    "t": 1792767189.796,
     "tool": "classify_enhanced",
     "inputs": {
      "frame": 2
@@ -783,27 +880,27 @@
     "observation": {
      "label": "cheetah",
      "scientific": "Acinonyx jubatus",
-     "score": 0.6782,
+     "score": 0.4978,
      "model": "speciesnet:v4.0.3a",
      "alternatives": [
       [
        "Leptailurus serval",
-       0.1554
+       0.4842
       ],
       [
        "Panthera pardus",
-       0.1296
+       0.0074
       ],
       [
        "Panthera onca",
-       0.0264
+       0.0012
       ]
      ]
     },
     "decision": "still unsure: try another frame"
    },
    {
-    "t": 1792765320.987,
+    "t": 1792767189.805,
     "tool": "decide",
     "inputs": {
      "event": {
@@ -821,9 +918,9 @@
     },
     "observation": {
      "label": "cheetah",
-     "score": 0.6782
+     "score": 0.4978
     },
-    "decision": "review: looks like cheetah, but could be Panthera pardus (0.13): leopard recorded"
+    "decision": "review: classifier unsure; a person should confirm"
    }
   ]
  },
@@ -846,41 +943,51 @@
       134
      ]
     },
-    "frame_used": 0,
+    "frame_used": 2,
     "quality": {
-     "brightness": 97.0,
-     "sharpness": 6265.2,
+     "brightness": 97.2,
+     "sharpness": 6270.7,
      "is_night_ir": true,
      "usable": true
     },
     "prediction": {
-     "label": "thomson's gazelle",
-     "scientific": "Eudorcas thomsonii",
-     "score": 0.709,
+     "label": "impala",
+     "scientific": "Aepyceros melampus",
+     "score": 0.6686,
      "model": "speciesnet:v4.0.3a",
      "alternatives": [
       [
        "Nanger granti",
-       0.2605
+       0.2601
+      ],
+      [
+       "Eudorcas thomsonii",
+       0.0322
+      ],
+      [
+       "Redunca",
+       0.0164
       ],
       [
        "Madoqua",
-       0.0176
-      ],
-      [
-       "Aepyceros melampus",
-       0.0058
+       0.0064
       ]
      ]
     },
-    "action": "log",
-    "reason": "confident identification",
-    "attempts": 3
+    "action": "review",
+    "reason": "classifier unsure; a person should confirm",
+    "attempts": 3,
+    "box": [
+     983,
+     444,
+     126,
+     134
+    ]
    }
   ],
   "trace": [
    {
-    "t": 1792765321.004,
+    "t": 1792767189.821,
     "tool": "read_frames",
     "inputs": {
      "source": "samples/impala-dark/frame1.jpg,samples/impala-dark/frame2.jpg,samples/impala-dark/frame3.jpg",
@@ -893,7 +1000,7 @@
     "decision": "detect motion"
    },
    {
-    "t": 1792765321.29,
+    "t": 1792767190.067,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.004,
@@ -906,7 +1013,7 @@
     "decision": "no motion: retry with a more sensitive threshold"
    },
    {
-    "t": 1792765321.595,
+    "t": 1792767190.341,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.0015,
@@ -919,7 +1026,7 @@
     "decision": "triage each event"
    },
    {
-    "t": 1792765322.047,
+    "t": 1792767190.828,
     "tool": "enhance",
     "inputs": {
      "frame": 2,
@@ -941,7 +1048,7 @@
     "decision": "use enhanced frame"
    },
    {
-    "t": 1792765322.512,
+    "t": 1792767191.266,
     "tool": "compare",
     "inputs": {
      "frame": 2
@@ -953,7 +1060,7 @@
     "decision": "raw frame was more informative than the enhanced one"
    },
    {
-    "t": 1792765322.512,
+    "t": 1792767191.266,
     "tool": "classify",
     "inputs": {
      "frame": 2,
@@ -989,7 +1096,64 @@
     "decision": "unsure: try another frame"
    },
    {
-    "t": 1792765322.927,
+    "t": 1792767195.391,
+    "tool": "detect_animals",
+    "inputs": {
+     "frame": 2,
+     "model": "megadetector-v5a",
+     "why": "classifier unsure"
+    },
+    "observation": {
+     "detections": [
+      {
+       "label": "animal",
+       "score": 0.9375,
+       "box": [
+        925,
+        419,
+        240,
+        225
+       ]
+      }
+     ]
+    },
+    "decision": "re-crop around the detector's box"
+   },
+   {
+    "t": 1792767195.885,
+    "tool": "classify",
+    "inputs": {
+     "frame": 2,
+     "box": "detector"
+    },
+    "observation": {
+     "label": "grant's gazelle",
+     "scientific": "Nanger granti",
+     "score": 0.6154,
+     "model": "speciesnet:v4.0.3a",
+     "alternatives": [
+      [
+       "Aepyceros melampus",
+       0.222
+      ],
+      [
+       "Eudorcas thomsonii",
+       0.1295
+      ],
+      [
+       "Madoqua",
+       0.0181
+      ],
+      [
+       "Redunca",
+       0.0095
+      ]
+     ]
+    },
+    "decision": "unsure"
+   },
+   {
+    "t": 1792767196.309,
     "tool": "classify_enhanced",
     "inputs": {
      "frame": 2
@@ -1021,7 +1185,7 @@
     "decision": "still unsure: try another frame"
    },
    {
-    "t": 1792765323.387,
+    "t": 1792767196.812,
     "tool": "enhance",
     "inputs": {
      "frame": 0,
@@ -1043,7 +1207,7 @@
     "decision": "use enhanced frame"
    },
    {
-    "t": 1792765323.805,
+    "t": 1792767197.209,
     "tool": "classify",
     "inputs": {
      "frame": 0,
@@ -1076,63 +1240,10 @@
       ]
      ]
     },
-    "decision": "accept"
+    "decision": "classifier sees nothing, but something moved: check"
    },
    {
-    "t": 1792765327.463,
-    "tool": "detect_animals",
-    "inputs": {
-     "frame": 0,
-     "model": "megadetector-v5a",
-     "why": "motion but blank"
-    },
-    "observation": {
-     "detections": [
-      {
-       "label": "animal",
-       "score": 0.8673,
-       "box": [
-        1111,
-        378,
-        167,
-        286
-       ]
-      }
-     ]
-    },
-    "decision": "re-crop around the detector's box"
-   },
-   {
-    "t": 1792765327.848,
-    "tool": "classify",
-    "inputs": {
-     "frame": 0,
-     "box": "detector"
-    },
-    "observation": {
-     "label": "thomson's gazelle",
-     "scientific": "Eudorcas thomsonii",
-     "score": 0.709,
-     "model": "speciesnet:v4.0.3a",
-     "alternatives": [
-      [
-       "Nanger granti",
-       0.2605
-      ],
-      [
-       "Madoqua",
-       0.0176
-      ],
-      [
-       "Aepyceros melampus",
-       0.0058
-      ]
-     ]
-    },
-    "decision": "accept"
-   },
-   {
-    "t": 1792765327.848,
+    "t": 1792767197.209,
     "tool": "decide",
     "inputs": {
      "event": {
@@ -1149,10 +1260,10 @@
      }
     },
     "observation": {
-     "label": "thomson's gazelle",
-     "score": 0.709
+     "label": "impala",
+     "score": 0.6686
     },
-    "decision": "log: confident identification"
+    "decision": "review: classifier unsure; a person should confirm"
    }
   ]
  },
@@ -1200,12 +1311,18 @@
     },
     "action": "discard",
     "reason": "empty frame",
-    "attempts": 1
+    "attempts": 1,
+    "box": [
+     473,
+     0,
+     350,
+     334
+    ]
    }
   ],
   "trace": [
    {
-    "t": 1792765327.865,
+    "t": 1792767197.226,
     "tool": "read_frames",
     "inputs": {
      "source": "samples/empty-wind/frame1.jpg,samples/empty-wind/frame2.jpg,samples/empty-wind/frame3.jpg",
@@ -1218,7 +1335,7 @@
     "decision": "detect motion"
    },
    {
-    "t": 1792765328.144,
+    "t": 1792767197.48,
     "tool": "detect_motion",
     "inputs": {
      "min_area_frac": 0.004,
@@ -1231,7 +1348,7 @@
     "decision": "triage each event"
    },
    {
-    "t": 1792765328.59,
+    "t": 1792767197.905,
     "tool": "classify",
     "inputs": {
      "frame": 1,
@@ -1256,10 +1373,10 @@
       ]
      ]
     },
-    "decision": "accept"
+    "decision": "classifier sees nothing, but something moved: check"
    },
    {
-    "t": 1792765332.089,
+    "t": 1792767201.24,
     "tool": "detect_animals",
     "inputs": {
      "frame": 1,
@@ -1272,7 +1389,7 @@
     "decision": "detector agrees: nothing there"
    },
    {
-    "t": 1792765332.089,
+    "t": 1792767201.241,
     "tool": "decide",
     "inputs": {
      "event": {

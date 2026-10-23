@@ -97,5 +97,5 @@ def test_still_animal_falls_back_to_detector(tmp_path):
     det = FakeDetector([Detection("animal", 0.9, (60, 150, 80, 80))])
     run = TriageAgent(StubClassifier(), detector=det).run(_burst(tmp_path, moving=False))
     tools = [s.tool for s in run.trace]
-    assert "detect_animals" in tools and det.calls == 1  # no motion changed the next tool call
+    assert tools.index("detect_animals") < tools.index("classify") and det.calls >= 1  # no motion: detector before classifier
     assert run.events[0].action == "alert_pending_approval"

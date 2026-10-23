@@ -12,17 +12,17 @@ Camera traps record thousands of triggers a week; most are wind or empty frames,
 
 | | Fixed single pass | TrailWatch agent |
 | --- | --- | --- |
-| Correct action | 71.9% | **92.7%** |
+| Correct action | 71.9% | **93.5%** |
 | Animals wrongly discarded | 68 of 240 | **8 of 240** |
-| Elephants, lions, leopards alerted | 37 of 60 | **50 of 60** |
-| Watch-listed animals reaching a person | 40 of 60 | **57 of 60** |
+| Elephants, lions, leopards alerted | 37 of 60 | **52 of 60** |
+| Watch-listed animals reaching a person | 40 of 60 | **56 of 60** |
 | False alerts | 0 | 0 |
 
 ## How it works
 
 1. **Find motion** with OpenCV 5: MOG2 for video, a median-background difference for bursts of stills. Nothing? Retry with a lower threshold, then ask **MegaDetector** (it finds animals that stood still).
 2. **Check quality**: brightness, Laplacian sharpness, infrared test. Poor? **Enhance** (adaptive gamma, CLAHE, unsharp mask), re-measure, keep whichever version the classifier is surer about.
-3. **Identify** the crop with Google's **SpeciesNet**. Unsure? Re-classify the enhanced crop, then the next sharpest frame. "Blank" although something moved? Ask MegaDetector and re-crop.
+3. **Identify** the crop with Google's **SpeciesNet**. Unsure? Re-classify the enhanced crop, then the next sharpest frame. "Blank" or unsure about a loose motion box? Ask MegaDetector for the animal's own box and re-crop.
 4. **Decide**: `log`, `review` (unsure, or a look-alike of a watch-listed species), `alert_pending_approval` (watch-listed species, held for a person), or `discard` (empty, people, vehicles: not kept).
 
 Every step is returned as a trace of `{tool, inputs, observation, decision}`. See [docs/architecture.md](docs/architecture.md) and example traces in [docs/sample_traces.json](docs/sample_traces.json).

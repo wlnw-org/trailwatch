@@ -29,8 +29,9 @@ measurements from one step choose the next step. The full loop is in [architectu
 4. **Recover poor frames:** adaptive gamma towards a target brightness, CLAHE on the L channel, and an unsharp mask. Re-measure;
    classify both versions and keep the one the classifier is surer about (enhancement can distort colour).
 5. **Identify** the crop with **SpeciesNet v4.0.3a** (Google's open camera-trap classifier, about 2,500 labels).
-6. **Resolve disagreements.** Motion found but the classifier says "blank": ask MegaDetector, re-crop around its box, or
-   discard if it agrees nothing is there. Unsure: re-classify the enhanced crop, then the next sharpest frame (up to 3 tries).
+6. **Resolve disagreements.** Motion found but the classifier says "blank" or is unsure: ask MegaDetector for the animal's own
+   box (motion boxes can cover only the part that moved), re-crop and keep the better answer, or discard if it agrees nothing
+   is there. Unsure: re-classify the enhanced crop, then the next sharpest frame (up to 3 tries).
 7. **Decide an action**:
    - `log`: confident identification;
    - `review`: unsure, or the top answer is a look-alike of a watch-listed species (for example cheetah with leopard close
@@ -73,24 +74,24 @@ checks. Script: [`scripts/evaluate_real.py`](../scripts/evaluate_real.py); sampl
 
 | Metric | Baseline | TrailWatch agent |
 | --- | --- | --- |
-| Correct action | 71.9% | **92.7%** |
+| Correct action | 71.9% | **93.5%** |
 | Animals wrongly discarded as empty | 68 of 240 | **8 of 240** |
-| Watch-listed animals alerted | 37 of 60 | **50 of 60** |
-| Watch-listed animals reaching a person (alert or review) | 40 of 60 | **57 of 60** |
+| Watch-listed animals alerted | 37 of 60 | **52 of 60** |
+| Watch-listed animals reaching a person (alert or review) | 40 of 60 | **56 of 60** |
 | False alerts | 0 | 0 |
-| Auto-logged records with the right genus | 119 of 122 | 156 of 163 |
-| Sent to human review | 14 | 20 |
+| Auto-logged records with the right genus | 119 of 122 | 159 of 165 |
+| Sent to human review | 14 | 16 |
 
 Correct action by class (agent / baseline, out of 20): baboon 19/11, buffalo 20/16, cheetah 19/18, elephant 20/17, empty 19/19,
-Thomson's gazelle 19/12, giraffe 18/17, spotted hyena 18/14, impala 19/14, leopard 12/7, lion 18/13, wildebeest 20/17,
+Thomson's gazelle 19/12, giraffe 18/17, spotted hyena 18/14, impala 19/14, leopard 13/7, lion 19/13, wildebeest 20/17,
 zebra 20/12.
 
-Tool use across the 260 bursts: 331 motion detections, 73 MegaDetector calls, 43 re-classifications of enhanced crops,
-8 enhancements. Mean time per burst about 2.2 seconds on 2 CPU cores, including both models.
+Tool use across the 260 bursts: 331 motion detections, 102 MegaDetector calls, 25 re-classifications of enhanced crops,
+8 enhancements. Mean time per burst about 2.5 seconds on 2 CPU cores, including both models.
 
 **What the agent changes.** Most of the gain comes from two decisions: calling the detector when motion detection finds
 nothing (animals that stood still across the burst), and checking "blank" answers with the detector when motion was seen.
-Together they cut animals wrongly discarded from 68 to 8. The look-alike rule sends spotted cats with a leopard close behind to
+Together they cut animals wrongly discarded from 68 to 8. A third use of the detector, asking it for the animal's own box when the classifier is unsure about a loose motion box, raised alerts caught from 50 to 52 of 60. The look-alike rule sends spotted cats with a leopard close behind to
 a person instead of logging them.
 
 ### Synthetic clips
@@ -103,12 +104,11 @@ matters more.
 ### Failure cases
 
 - **Leopard read as cheetah** (7 of 20 leopards): a classifier error on similar spotted cats. The look-alike rule sent 4 of
-  them to review; 3 were still logged as cheetahs with scores of 0.87 to 0.92. One more leopard was alerted as a lion, and one
-  went to review as a jaguar.
+  them to review; 3 were still logged as cheetahs with scores of 0.76 to 0.92. One more leopard was alerted as a lion.
 - **Animals still missed** (8 of 240): small, distant or hidden animals that neither motion detection nor MegaDetector found at
   the 0.2 score threshold (baboon, cheetah, gazelle, two giraffes, two hyenas, impala).
-- **Wrong species, confident** (7 of 163 auto-logged): two buffalo as wildebeest, a hyena and a wildebeest as cattle, and the
-  three leopards above.
+- **Wrong species, confident** (6 of 165 auto-logged): a buffalo as wildebeest, a wildebeest as cattle, a lion as hartebeest,
+  and the three leopards above.
 - **One empty frame** sent to review as impala (score 0.52).
 
 ## 6. Limitations

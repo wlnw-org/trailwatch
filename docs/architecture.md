@@ -28,7 +28,7 @@ flowchart LR
   Q -- poor --> E --> Q
   Q -- usable --> C
   C -- unsure --> Q
-  C -- blank but motion --> D
+  C -- blank or unsure --> D
   C --> P
   P -- log --> T
   P -- discard --> T
@@ -44,7 +44,7 @@ flowchart LR
 | Still no motion | Call MegaDetector (slower, finds animals that stood still) |
 | Frame dark or blurry | Enhance, then re-measure; if still poor, move to the next sharpest frame |
 | Classifier unsure | Re-classify the enhanced crop, then try another frame (up to 3 attempts) |
-| Motion found but classifier says "blank" | Ask MegaDetector; re-crop around its box, or discard if it agrees |
+| Classifier says "blank" or is unsure about a motion box | Ask MegaDetector for the animal's box; re-crop, or discard if it agrees nothing is there |
 | Top answer is a look-alike of a watch-listed species | Send to human review |
 | Watch-listed species | Raise an alert that waits for a person to approve it |
 

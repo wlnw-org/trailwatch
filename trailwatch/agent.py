@@ -62,6 +62,7 @@ class EventResult:
     action: str
     reason: str
     attempts: int
+    box: list | None = None  # x, y, w, h of the crop used, on the frame as read
 
 
 @dataclass
@@ -75,6 +76,13 @@ class Run:
 
     def to_dict(self) -> dict:
         return asdict(self)
+
+
+def _overlap(a, b) -> float:
+    """Intersection area of two x, y, w, h boxes."""
+    x0, y0 = max(a[0], b[0]), max(a[1], b[1])
+    x1, y1 = min(a[0] + a[2], b[0] + b[2]), min(a[1] + a[3], b[1] + b[3])
+    return float(max(0, x1 - x0) * max(0, y1 - y0))
 
 
 def _better(new: Prediction, old: Prediction | None) -> bool:
@@ -195,22 +203,29 @@ class TriageAgent:
                       ("classifier sees nothing, but something moved: check" if pred.label == "blank" and self.det
                        else "accept" if pred.score >= p["accept_score"] else "unsure: try another frame"))
 
-            if pred.label == "blank" and self.det is not None and not checked_blank:
-                # Motion said something moved; the classifier saw nothing. Ask the detector to settle it.
+            unsure = pred.label == "blank" or pred.score < p["accept_score"]
+            if unsure and self.det is not None and not checked_blank:
+                # Motion boxes can be loose or cover only the part that moved. When the classifier sees nothing or
+                # is unsure, ask the detector for the animal's own box, preferring one that overlaps the motion.
                 checked_blank = True
+                why = "motion but blank" if pred.label == "blank" else "classifier unsure"
                 dets = self.det.detect(img)
-                self._log(run, "detect_animals", {"frame": f.index, "model": self.det.name, "why": "motion but blank"},
+                mbox = ev.box_for(f.index)
+                hit = [d for d in dets if _overlap(d.box, mbox) > 0] or dets
+                self._log(run, "detect_animals", {"frame": f.index, "model": self.det.name, "why": why},
                           {"detections": [asdict(d) for d in dets[:3]]},
-                          "re-crop around the detector's box" if dets else "detector agrees: nothing there")
-                if dets:
-                    d = dets[0]
+                          "re-crop around the detector's box" if hit else "detector agrees: nothing there")
+                if hit:
+                    d = hit[0]
                     if d.label in ("human", "vehicle"):
                         pred = Prediction(d.label, "", d.score, self.det.name)
                     else:
-                        ev.boxes[f.index] = d.box
-                        pred = self.clf.classify(vision.crop(img, d.box))
-                        self._log(run, "classify", {"frame": f.index, "box": "detector"}, asdict(pred),
-                                  "accept" if pred.score >= p["accept_score"] else "unsure")
+                        alt = self.clf.classify(vision.crop(img, d.box))
+                        self._log(run, "classify", {"frame": f.index, "box": "detector"}, asdict(alt),
+                                  "accept" if alt.score >= p["accept_score"] else "unsure")
+                        if _better(alt, pred):
+                            ev.boxes[f.index] = d.box
+                            pred = alt
 
             if _better(pred, best[0] if best else None):
                 best = (pred, f.index, q)
@@ -238,7 +253,8 @@ class TriageAgent:
         action, reason = self._decide(pred, q)
         self._log(run, "decide", {"event": ev.to_dict()}, {"label": pred.label, "score": pred.score},
                   f"{action}: {reason}")
-        return EventResult(ev.to_dict(), idx, q.to_dict(), asdict(pred), action, reason, attempts)
+        return EventResult(ev.to_dict(), idx, q.to_dict(), asdict(pred), action, reason, attempts,
+                           list(ev.box_for(idx)))
 
     def _watch(self, sci: str) -> str | None:
         wl = self.policy["watchlist"]
