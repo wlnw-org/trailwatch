@@ -66,4 +66,4 @@ One Amazon Linux 2023 `t4g.medium` instance (AWS Graviton, arm64) started with [
 
 ## Credits
 
-Sample images: Snapshot Serengeti (Swanson et al. 2015) via LILA BC, CDLA-Permissive 1.0. Models: SpeciesNet (Google, Apache-2.0), MegaDetector v5a (MIT). Part of [WildNetwork](https://wildnetwork.arunrajiah.com), an open live map of wildlife detections.
+Sample images: Snapshot Serengeti (Swanson et al. 2015) via LILA BC, CDLA-Permissive 1.0. Models: SpeciesNet (Google, Apache-2.0), MegaDetector v5a (MIT). Part of [Wildlife Network](https://wlnw.org), an open live map of wildlife detections.

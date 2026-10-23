@@ -1,7 +1,7 @@
 # TrailWatch: technical report
 
 **An OpenCV 5 agent that triages camera-trap footage and decides what should happen next.**
-OpenCV AI Competition 2026, Agentic Vision track. Author: Arun Rajiah (WildNetwork, Chennai). Code: Apache-2.0.
+OpenCV AI Competition 2026, Agentic Vision track. Author: Arun Rajiah (Wildlife Network, Chennai). Code: Apache-2.0.
 
 ## 1. Problem and users
 
@@ -11,7 +11,7 @@ conservation groups and researchers cannot look at every frame, and fixed "AI sa
 animals that stand still, dark infrared frames, and look-alike species.
 
 **Users:** reserve staff and rangers who need alerts they can trust; ecologists who need clean, labelled records; and
-community monitoring networks such as [WildNetwork](https://wildnetwork.arunrajiah.com), an open live map of wildlife
+community monitoring networks such as [Wildlife Network](https://wlnw.org), an open live map of wildlife
 detections that is installing its first stations in Chennai, India, in December 2026.
 
 ## 2. What the agent does
@@ -123,7 +123,7 @@ matters more.
 
 - **Human control:** alerts never leave the system without a person approving them, and unsure or look-alike cases go to review.
 - **Privacy:** people and vehicles are discarded, never stored or classified further. The endpoint keeps no uploads.
-- **Sensitive species:** locations of watch-listed species should be generalised before any data is published (WildNetwork
+- **Sensitive species:** locations of watch-listed species should be generalised before any data is published (Wildlife Network
   rounds coordinates on the device).
 - **Honest reporting:** the trace shows every step, so a reviewer can see why a decision was made and challenge it.
 
