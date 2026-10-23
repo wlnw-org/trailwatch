@@ -59,6 +59,7 @@ OpenCV 5, PyTorch CPU, SpeciesNet and MegaDetector weights baked in at build tim
   after the request ends.
 - The models run on the Arm CPU; no GPU is needed. A burst takes about 2 seconds of model time on a 2-vCPU machine.
 - The security group opens only port 80 (HTTP).
+- Live endpoint for judging: **http://13.203.20.56/** (instance i-0ab8dc3a89fff0dca, ap-south-1). Measured on this instance: about 5 seconds per three-image burst once warm, about 20 seconds for the first request after idle.
 
 ## 5. Evaluation
 

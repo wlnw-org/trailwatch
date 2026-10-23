@@ -4,6 +4,8 @@
 
 Built for the OpenCV AI Competition 2026 (powered by AWS), Agentic Vision track. Open source under Apache-2.0.
 
+**Live demo on AWS Graviton: http://13.203.20.56/** (the first request after a quiet spell takes about 20 seconds while the models warm up). Video: https://vimeo.com/1238850212
+
 Camera traps record thousands of triggers a week; most are wind or empty frames, and a few matter, such as an elephant walking towards a village at night. Fixed "AI says X" pipelines fail quietly on animals that stand still, dark infrared frames and look-alike species. TrailWatch treats each trigger as a small investigation: the measurements OpenCV 5 makes decide the next tool call, and every alert waits for a person.
 
 ## Results on real camera-trap data
